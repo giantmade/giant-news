@@ -10,7 +10,7 @@ class ArticleIndex(ListView):
 
     model = Article
     context_object_name = "article_index"
-    template_name = "./index.html"
+    template_name = "./news_index.html"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """
@@ -28,4 +28,4 @@ class ArticleDetail(DetailView):
     """
 
     queryset = Article.objects.published()
-    template_name = "./detail.html"
+    template_name = "./news_detail.html"
