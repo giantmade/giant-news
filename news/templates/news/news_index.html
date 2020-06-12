@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load cms_tags static %}
+
+{% block hero %}{% endblock hero %}
+
+{% block body %}
+    <section class="page-title">
+        <div class="wrapper">
+            <div class="page-title__container">
+                <h1>Latest news</h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-image-block">
+        <div class="wrapper">
+            {% for article in article_index %}
+                <a href="{{ article.get_absolute_url }}" title="{{ article.title }}" class="text-image-block__item">
+                    <div class="text-image-block__text col">
+                        <div class="upper">
+                            <h3>{{ article.title }}</h3>
+                            <p>{{ article.intro }}</p>
+                        </div>
+                        <div class="lower">
+                            <p>
+                                <strong>Posted by {{ article.author|title }}</strong><br />
+                                {{ article.publish_at|date:"d F Y" }}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            {% empty %}
+                <h3>No articles currently listed</h3>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock body %}
