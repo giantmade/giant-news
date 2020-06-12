@@ -14,60 +14,136 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('cms', '0022_auto_20180620_1551'),
+        ("cms", "0022_auto_20180620_1551"),
         migrations.swappable_dependency(settings.FILER_IMAGE_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ArticleTag',
+            name="ArticleTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated_at', mixins.fields.AutoDateTimeField(default=django.utils.timezone.now)),
-                ('tag', models.CharField(max_length=255)),
-                ('slug', models.SlugField(max_length=255, unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                (
+                    "updated_at",
+                    mixins.fields.AutoDateTimeField(default=django.utils.timezone.now),
+                ),
+                ("tag", models.CharField(max_length=255)),
+                ("slug", models.SlugField(max_length=255, unique=True)),
             ],
             options={
-                'verbose_name': 'Article Tag',
-                'verbose_name_plural': 'Article Tags',
+                "verbose_name": "Article Tag",
+                "verbose_name_plural": "Article Tags",
             },
         ),
         migrations.CreateModel(
-            name='Author',
+            name="Author",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated_at', mixins.fields.AutoDateTimeField(default=django.utils.timezone.now)),
-                ('first_name', models.CharField(max_length=255)),
-                ('last_name', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                (
+                    "updated_at",
+                    mixins.fields.AutoDateTimeField(default=django.utils.timezone.now),
+                ),
+                ("first_name", models.CharField(max_length=255)),
+                ("last_name", models.CharField(max_length=255)),
             ],
             options={
-                'verbose_name': 'Author',
-                'verbose_name_plural': 'Authors',
-                'ordering': ['first_name'],
+                "verbose_name": "Author",
+                "verbose_name_plural": "Authors",
+                "ordering": ["first_name"],
             },
         ),
         migrations.CreateModel(
-            name='Article',
+            name="Article",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated_at', mixins.fields.AutoDateTimeField(default=django.utils.timezone.now)),
-                ('is_published', models.BooleanField(default=False, help_text='Selecting this option will publish this item')),
-                ('publish_at', models.DateTimeField(blank=True, default=django.utils.timezone.now, null=True)),
-                ('title', models.CharField(max_length=255)),
-                ('slug', models.SlugField(max_length=255, unique=True)),
-                ('intro', models.CharField(max_length=255)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='articles', to='news.Author')),
-                ('content', cms.models.fields.PlaceholderField(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='article_content', slotname='article_content', to='cms.Placeholder')),
-                ('photo', filer.fields.image.FilerImageField(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='news_article_images', to=settings.FILER_IMAGE_MODEL)),
-                ('tags', models.ManyToManyField(related_name='news_article_tags', to='news.ArticleTag', verbose_name='Tags')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                (
+                    "updated_at",
+                    mixins.fields.AutoDateTimeField(default=django.utils.timezone.now),
+                ),
+                (
+                    "is_published",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Selecting this option will publish this item",
+                    ),
+                ),
+                (
+                    "publish_at",
+                    models.DateTimeField(
+                        blank=True, default=django.utils.timezone.now, null=True
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                ("slug", models.SlugField(max_length=255, unique=True)),
+                ("intro", models.CharField(max_length=255)),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="articles",
+                        to="news.Author",
+                    ),
+                ),
+                (
+                    "content",
+                    cms.models.fields.PlaceholderField(
+                        editable=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="article_content",
+                        slotname="article_content",
+                        to="cms.Placeholder",
+                    ),
+                ),
+                (
+                    "photo",
+                    filer.fields.image.FilerImageField(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="news_article_images",
+                        to=settings.FILER_IMAGE_MODEL,
+                    ),
+                ),
+                (
+                    "tags",
+                    models.ManyToManyField(
+                        related_name="news_article_tags",
+                        to="news.ArticleTag",
+                        verbose_name="Tags",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Article',
-                'verbose_name_plural': 'Articles',
-                'ordering': ['-created_at'],
+                "verbose_name": "Article",
+                "verbose_name_plural": "Articles",
+                "ordering": ["-created_at"],
             },
         ),
     ]

@@ -11,6 +11,7 @@ class TestArticleView:
     """
     Test case for the Article app views
     """
+
     from news import models
 
     @pytest.fixture
