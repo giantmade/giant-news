@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load cms_tags staticfiles thumbnail %}
+
+{% block hero %}{% endblock hero %}
+{% block breadcrumb %}{% endblock breadcrumb %}
+
+{% block page_title %}
+    <section class="page-title page-title--link">
+        <div class="wrapper wrapper--thin">
+            <div class="page-title__container">
+                <h1>{{ article.title }}</h1>
+                <a href="{% url 'news:index' %}" title="Back to news">Back to news</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block body %}
+    {% render_placeholder article.content %}
+{% endblock body %}

@@ -1,0 +1,1 @@
+- Maybe add a get_settings() function to reduce repeat code in admin.py
