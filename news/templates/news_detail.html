@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load cms_tags static thumbnail %}
+
+{% block body %}
+    <div>
+        <a href="{% url 'news:index' %}" title="Back to news">Back to news</a>
+        <h1>{{ article.title }}</h1>
+    </div>
+    {% render_placeholder article.content %}
+{% endblock body %}
