@@ -29,6 +29,7 @@ This application exposes the following settings:
 - `AUTHOR_ADMIN_LIST_DISPLAY`  is the field list for the admin index. This must be a list
 - `AUTHOR_ADMIN_FIELDSETS` allows the user to define the admin fieldset. This must be a list of two-tuples
 - `AUTHOR_ADMIN_READONLY_FIELDS` allows the user to configure readonly fields in the admin. This must be a list
+
 ## URLs
 
 Add the following to `core.urls` for general functionality:
