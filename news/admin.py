@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import admin
 
-from .models import Article, ArticleTag, Author
+from .models import Article, ArticleTag, Author, Category
 
 
 @admin.register(ArticleTag)
@@ -10,7 +10,7 @@ class ArticleTagAdmin(admin.ModelAdmin):
     Admin config for ArticleTag model
     """
 
-    list_display = getattr(settings, "ARTICLETAG_ADMIN_LIST_DISPLAY", ["tag"])
+    list_display = getattr(settings, "ARTICLETAG_ADMIN_LIST_DISPLAY", ["tag", "created_at"])
 
     fieldsets = getattr(
         settings,
@@ -36,7 +36,7 @@ class ArticleAdmin(admin.ModelAdmin):
     """
 
     list_display = getattr(
-        settings, "ARTICLE_ADMIN_LIST_DISPLAY", ["title", "author", "is_published"]
+        settings, "ARTICLE_ADMIN_LIST_DISPLAY", ["title", "author", "category", "is_published", "created_at"]
     )
     search_fields = getattr(
         settings, "ARTICLE_ADMIN_SEARCH_FIELDS", ["title", "author"]
@@ -54,6 +54,7 @@ class ArticleAdmin(admin.ModelAdmin):
                         "title",
                         "slug",
                         "author",
+                        "category",
                         "intro",
                         "tags",
                         "is_published",
@@ -81,13 +82,13 @@ class AuthorAdmin(admin.ModelAdmin):
     """
 
     list_display = getattr(
-        settings, "AUTHOR_ADMIN_LIST_DISPLAY", ["first_name", "last_name"]
+        settings, "AUTHOR_ADMIN_LIST_DISPLAY", ["name", "created_at"]
     )
     fieldsets = getattr(
         settings,
         "AUTHOR_ADMIN_FIELDSETS",
         [
-            ("Details", {"fields": ["first_name", "last_name"]},),
+            ("Details", {"fields": ["name"]},),
             (
                 "Meta Data",
                 {"classes": ("collapse",), "fields": ["created_at", "updated_at"]},
@@ -97,4 +98,29 @@ class AuthorAdmin(admin.ModelAdmin):
 
     readonly_fields = getattr(
         settings, "AUTHOR_ADMIN_READONLY_FIELDS", ["created_at", "updated_at"],
+    )
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    """
+    Admin class for editing and creating Category objects
+    """
+    list_display = getattr(
+        settings, "CATEGORY_ADMIN_LIST_DISPLAY", ["category", "created_at"]
+    )
+    search_fields = getattr(
+        settings, "CATEGORY_ADMIN_SEARCH_FIELDS", ["category"]
+    )
+    prepopulated_fields = {"slug": ["category"]}
+    fieldsets = getattr(
+        settings,
+        "CATEGORY_ADMIN_FIELDSETS",
+        [
+            (None, {"fields": ["category", "slug"]}),
+            (
+                "Meta Data",
+                {"classes": ("collapse",), "fields": ["created_at", "updated_at"]},
+            ),
+        ],
     )
