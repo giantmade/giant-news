@@ -112,15 +112,15 @@ class CategoryAdmin(admin.ModelAdmin):
     """
 
     list_display = getattr(
-        settings, "CATEGORY_ADMIN_LIST_DISPLAY", ["category", "created_at"]
+        settings, "CATEGORY_ADMIN_LIST_DISPLAY", ["name", "created_at"]
     )
-    search_fields = getattr(settings, "CATEGORY_ADMIN_SEARCH_FIELDS", ["category"])
-    prepopulated_fields = {"slug": ["category"]}
+    search_fields = getattr(settings, "CATEGORY_ADMIN_SEARCH_FIELDS", ["name"])
+    prepopulated_fields = {"slug": ["name"]}
     fieldsets = getattr(
         settings,
         "CATEGORY_ADMIN_FIELDSETS",
         [
-            (None, {"fields": ["category", "slug"]}),
+            (None, {"fields": ["name", "slug"]}),
             (
                 "Meta Data",
                 {"classes": ("collapse",), "fields": ["created_at", "updated_at"]},

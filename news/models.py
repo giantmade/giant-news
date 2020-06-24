@@ -51,19 +51,19 @@ class Category(TimestampMixin):
     Model for creating and storing a Category object
     """
 
-    category = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
 
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "Categories"
-        ordering = ["category"]
+        ordering = ["name"]
 
     def __str__(self):
         """
         String representation of the Category object
         """
-        return self.category
+        return self.name
 
 
 class ArticleQuerySet(PublishingQuerySetMixin):
