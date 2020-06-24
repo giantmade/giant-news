@@ -1,1 +1,4 @@
-- Maybe add a get_settings() function to reduce repeat code in admin.py
+- Combine author name fields into one
+- Add Category model
+- Update url to be more explicit
+- Add str test for new model
