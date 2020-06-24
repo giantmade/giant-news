@@ -4,12 +4,12 @@ from django.db import migrations
 
 
 def forwards(apps, schema_editor):
-    Category = apps.get_model('news', 'Category')
+    Category = apps.get_model("news", "Category")
     Category.objects.create(category="Dummy Category", slug="dummy-category")
 
 
 def backwards(apps, schema_editor):
-    Category = apps.get_model('news', 'Category')
+    Category = apps.get_model("news", "Category")
     obj = Category.objects.get(slug="dummy-category")
     obj.delete()
 
@@ -17,9 +17,7 @@ def backwards(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('news', '0002_auto_20200624_1135'),
+        ("news", "0002_auto_20200624_1135"),
     ]
 
-    operations = [
-        migrations.RunPython(code=forwards, reverse_code=backwards)
-    ]
+    operations = [migrations.RunPython(code=forwards, reverse_code=backwards)]

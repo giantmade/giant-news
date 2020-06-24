@@ -50,6 +50,7 @@ class Category(TimestampMixin):
     """
     Model for creating and storing a Category object
     """
+
     category = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
 
@@ -97,7 +98,9 @@ class Article(TimestampMixin, PublishingMixin):
     tags = models.ManyToManyField(
         to=ArticleTag, verbose_name="Tags", related_name="%(app_label)s_%(class)s_tags"
     )
-    category = models.ForeignKey(to=Category, on_delete=models.CASCADE, related_name="articles")
+    category = models.ForeignKey(
+        to=Category, on_delete=models.CASCADE, related_name="articles"
+    )
 
     objects = ArticleQuerySet.as_manager()
 

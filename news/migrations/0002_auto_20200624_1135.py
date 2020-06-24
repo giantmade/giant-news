@@ -11,41 +11,57 @@ import mixins.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('news', '0001_initial'),
+        ("news", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated_at', mixins.fields.AutoDateTimeField(default=django.utils.timezone.now)),
-                ('category', models.CharField(max_length=255)),
-                ('slug', models.SlugField(max_length=255, unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                (
+                    "updated_at",
+                    mixins.fields.AutoDateTimeField(default=django.utils.timezone.now),
+                ),
+                ("category", models.CharField(max_length=255)),
+                ("slug", models.SlugField(max_length=255, unique=True)),
             ],
             options={
-                'verbose_name': 'Category',
-                'verbose_name_plural': 'Categories',
-                'ordering': ['category'],
+                "verbose_name": "Category",
+                "verbose_name_plural": "Categories",
+                "ordering": ["category"],
             },
         ),
         migrations.AlterModelOptions(
-            name='author',
-            options={'ordering': ['name', '-created_at'], 'verbose_name': 'Author', 'verbose_name_plural': 'Authors'},
+            name="author",
+            options={
+                "ordering": ["name", "-created_at"],
+                "verbose_name": "Author",
+                "verbose_name_plural": "Authors",
+            },
         ),
         migrations.RenameField(
-            model_name='author',
-            old_name='first_name',
-            new_name='name',
+            model_name="author", old_name="first_name", new_name="name",
         ),
-        migrations.RemoveField(
-            model_name='author',
-            name='last_name',
-        ),
+        migrations.RemoveField(model_name="author", name="last_name",),
         migrations.AlterField(
-            model_name='article',
-            name='photo',
-            field=filer.fields.image.FilerImageField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='news_article_images', to=settings.FILER_IMAGE_MODEL),
+            model_name="article",
+            name="photo",
+            field=filer.fields.image.FilerImageField(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="news_article_images",
+                to=settings.FILER_IMAGE_MODEL,
+            ),
         ),
     ]

@@ -10,7 +10,9 @@ class ArticleTagAdmin(admin.ModelAdmin):
     Admin config for ArticleTag model
     """
 
-    list_display = getattr(settings, "ARTICLETAG_ADMIN_LIST_DISPLAY", ["tag", "created_at"])
+    list_display = getattr(
+        settings, "ARTICLETAG_ADMIN_LIST_DISPLAY", ["tag", "created_at"]
+    )
 
     fieldsets = getattr(
         settings,
@@ -36,7 +38,9 @@ class ArticleAdmin(admin.ModelAdmin):
     """
 
     list_display = getattr(
-        settings, "ARTICLE_ADMIN_LIST_DISPLAY", ["title", "author", "category", "is_published", "created_at"]
+        settings,
+        "ARTICLE_ADMIN_LIST_DISPLAY",
+        ["title", "author", "category", "is_published", "created_at"],
     )
     search_fields = getattr(
         settings, "ARTICLE_ADMIN_SEARCH_FIELDS", ["title", "author"]
@@ -106,12 +110,11 @@ class CategoryAdmin(admin.ModelAdmin):
     """
     Admin class for editing and creating Category objects
     """
+
     list_display = getattr(
         settings, "CATEGORY_ADMIN_LIST_DISPLAY", ["category", "created_at"]
     )
-    search_fields = getattr(
-        settings, "CATEGORY_ADMIN_SEARCH_FIELDS", ["category"]
-    )
+    search_fields = getattr(settings, "CATEGORY_ADMIN_SEARCH_FIELDS", ["category"])
     prepopulated_fields = {"slug": ["category"]}
     fieldsets = getattr(
         settings,
