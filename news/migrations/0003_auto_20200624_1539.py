@@ -17,7 +17,7 @@ def backwards(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('news', '0002_auto_20200624_1539'),
+        ("news", "0002_auto_20200624_1539"),
     ]
 
     operations = [migrations.RunPython(code=forwards, reverse_code=backwards)]
