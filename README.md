@@ -1,4 +1,4 @@
-# Giant Newsletter
+# Giant News
 
 A re-usable package which can be used in any project that requires a generic `News` app. 
 
@@ -36,10 +36,10 @@ Add the following to `core.urls` for general functionality:
 
     path("news/", include("news.urls"), name="news"),
 
-If you want to customize the urls to include a different path and/or templates, first you must import `news.views` in `core.urls` and then you could add the following:
+If you want to customize the urls to include a different path and/or templates, first you must import `from news import views as news_views` in `core.urls` and then you could add the following:
 
-    path("", ArticleIndex.as_view({"template_name": "custom_template_name.html}), name="index"),
-    path("<slug:slug>/", ArticleDetail.as_view({"template_name": "custom_template_name.html}), name="detail"),
+    path("news/", news_views.ArticleIndex.as_view(template_name="news/index.html"), name="news-index"),
+    path("news/<slug:slug>/", news_views.ArticleDetail.as_view(template_name="news/detail.html"), name="news-detail"),
  
  ## Preparing for release
  

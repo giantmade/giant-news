@@ -20,7 +20,6 @@ class TestArticle:
 
 
 @pytest.importorskip("django.settings.INSTALLED_APPS")
-@pytest.mark.django_db
 class TestArticleTag:
     # import models here to avoid error
     from news.models import ArticleTag
@@ -34,14 +33,26 @@ class TestArticleTag:
 
 
 @pytest.importorskip("django.settings.INSTALLED_APPS")
-@pytest.mark.django_db
 class TestAuthor:
     # import models here to avoid error
     from news.models import Author
 
     @pytest.fixture
     def author_instance(self):
-        return self.Author(first_name="John", last_name="Doe")
+        return self.Author(name="John Doe")
 
     def test_str(self, author_instance):
         assert str(author_instance) == "John Doe"
+
+
+@pytest.importorskip("django.settings.INSTALLED_APPS")
+class TestCategory:
+    # import models here to avoid error
+    from news.models import Category
+
+    @pytest.fixture
+    def category_instance(self):
+        return self.Category(category="Category")
+
+    def test_str(self, category_instance):
+        assert str(category_instance) == "Category"

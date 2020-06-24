@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.urls import reverse
 
 from cms.models import PlaceholderField
@@ -31,11 +32,10 @@ class Author(TimestampMixin):
     Model for storing an Author object
     """
 
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
 
     class Meta:
-        ordering = ["first_name"]
+        ordering = ["name", "-created_at"]
         verbose_name = "Author"
         verbose_name_plural = "Authors"
 
@@ -43,14 +43,27 @@ class Author(TimestampMixin):
         """
         String representation of the Author object
         """
-        return self.full_name
+        return self.name
 
-    @property
-    def full_name(self):
+
+class Category(TimestampMixin):
+    """
+    Model for creating and storing a Category object
+    """
+
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True)
+
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+        ordering = ["name"]
+
+    def __str__(self):
         """
-        Returns the full name of the Author
+        String representation of the Category object
         """
-        return f"{self.first_name} {self.last_name}"
+        return self.name
 
 
 class ArticleQuerySet(PublishingQuerySetMixin):
@@ -75,6 +88,7 @@ class Article(TimestampMixin, PublishingMixin):
         related_name="%(app_label)s_%(class)s_images",
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
     )
 
     intro = models.CharField(max_length=255)
@@ -83,6 +97,9 @@ class Article(TimestampMixin, PublishingMixin):
     )
     tags = models.ManyToManyField(
         to=ArticleTag, verbose_name="Tags", related_name="%(app_label)s_%(class)s_tags"
+    )
+    category = models.ForeignKey(
+        to=Category, on_delete=models.CASCADE, related_name="articles"
     )
 
     objects = ArticleQuerySet.as_manager()
@@ -98,8 +115,10 @@ class Article(TimestampMixin, PublishingMixin):
         """
         return f"{self.title} article by {self.author}"
 
+    @property
     def get_absolute_url(self):
         """
         Builds the url for the article object
         """
-        return reverse("news:detail", kwargs={"slug": self.slug})
+        url = getattr(settings, "NEWS_ABSOLUTE_URL", "news:news-detail")
+        return reverse(url, kwargs={"slug": self.slug})
