@@ -26,6 +26,7 @@
                                 <strong>Posted by {{ article.author|title }}</strong><br />
                                 {{ article.publish_at|date:"d F Y" }}
                             </p>
+                            <p>Reading time <span>{{ article.read_time }} {% if article.read_time == 1 %}minute{% else %}minutes{% endif %}</span></p>
                         </div>
                     </div>
                 </a>
