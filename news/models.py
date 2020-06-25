@@ -1,8 +1,12 @@
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
+from django.utils.functional import cached_property
+from django.utils.html import strip_tags
+from django.test import RequestFactory
 
 from cms.models import PlaceholderField
+from cms.plugin_rendering import ContentRenderer
 from filer.fields.image import FilerImageField
 
 from mixins.models import PublishingMixin, PublishingQuerySetMixin, TimestampMixin
@@ -122,3 +126,30 @@ class Article(TimestampMixin, PublishingMixin):
         """
         url = getattr(settings, "NEWS_ABSOLUTE_URL", "news:news-detail")
         return reverse(url, kwargs={"slug": self.slug})
+
+    @cached_property
+    def plain_text(self):
+        """
+        Renders all the plaintext plugins from the placeholder field
+        """
+
+        # We need to use this weird ContentRenderer in order to render the plugins
+        renderer = ContentRenderer(request=RequestFactory())
+        text = ""
+
+        for plugin in self.content.cmsplugin_set.all():
+            html = renderer.render_plugin(plugin, {})
+            text += strip_tags(html)
+
+        return text.strip()
+
+    @cached_property
+    def read_time(self):
+        """
+        Return estimated article reading time
+        """
+        word_count = len(self.plain_text.split())
+        mins = round(word_count / 240.0)
+        if mins < 1:
+            return 1
+        return mins
