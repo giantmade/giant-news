@@ -119,7 +119,6 @@ class Article(TimestampMixin, PublishingMixin):
         """
         return f"{self.title} article by {self.author}"
 
-    @property
     def get_absolute_url(self):
         """
         Builds the url for the article object
