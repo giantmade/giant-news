@@ -10,7 +10,7 @@ To install with the package manager, run:
 
     $ poetry add giant-news
 
-You should then add `"news", "easy_thumbnails" and "filer"` to the `INSTALLED_APPS` in `base.py`.  
+You should then add `"news", "easy_thumbnails" and "filer"` to the `INSTALLED_APPS` in your settings file.
 
 
 ## Configuration
