@@ -1,2 +1,2 @@
 - Add a get_settings() function to reduce repeat code in admin.py
-- Add settings file. Will allow tests to be run in app without needi Rgot ng a project
+- Add settings file. Will allow tests to be run in app without needing a project
