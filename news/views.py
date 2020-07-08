@@ -17,7 +17,7 @@ class ArticleIndex(ListView):
         Add published queryset to the context
         """
         context = super().get_context_data(
-            object_list=Article.objects.published(), **kwargs
+            object_list=Article.objects.published(user=self.request.user), **kwargs
         )
         return context
 
