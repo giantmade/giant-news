@@ -27,5 +27,13 @@ class ArticleDetail(DetailView):
     Detail view for an news object
     """
 
-    queryset = Article.objects.published()
     template_name = "./news_detail.html"
+
+    def get_queryset(self):
+        """
+        Override the default queryset method so that we can access the request.user
+        """
+        if self.queryset is None:
+            return Article.objects.published(user=self.request.user)
+        return self.queryset
+
