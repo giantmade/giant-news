@@ -9,3 +9,6 @@
 
 ## 0.1.2.2
 - Change URL property on Article model to a method to remove error when using "view on site" 
+
+## 0.1.3
+- Add related article plugin 

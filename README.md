@@ -10,7 +10,8 @@ To install with the package manager, run:
 
     $ poetry add giant-news
 
-You should then add `"news", "easy_thumbnails" and "filer"` to the `INSTALLED_APPS` in your settings file.
+You should then add `"news", "easy_thumbnails" and "filer"` to the `INSTALLED_APPS` in your settings file. 
+The detail pages in this app use plugins which are not contained within this app. It is recommended that you include a set of plugins in your project, or use the `giant-plugins` app.
 
 
 ## Configuration
@@ -29,6 +30,8 @@ This application exposes the following settings:
 - `AUTHOR_ADMIN_LIST_DISPLAY`  is the field list for the admin index. This must be a list
 - `AUTHOR_ADMIN_FIELDSETS` allows the user to define the admin fieldset. This must be a list of two-tuples
 - `AUTHOR_ADMIN_READONLY_FIELDS` allows the user to configure readonly fields in the admin. This must be a list
+
+- `RELATED_ARTICLES_LIMIT` allows the user to set how many articles are pulled through in the related articles plugin, the default is 3. Must be an int
 
 ## URLs
 
