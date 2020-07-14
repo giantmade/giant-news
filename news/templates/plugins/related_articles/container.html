@@ -1,0 +1,28 @@
+{% load cms_tags %}
+
+<section class="card-block">
+    <div class="wrapper">
+        <div class="card-block__cards card-block__cards--articles three-col">
+            {% if instance.tags.all %}
+                {% for article in latest_articles %}
+                    <a href="{{ article.get_absolute_url }}" title="Read more" class="card-block__cards__card three-col__col{% if article.category %} {{ article.category.slug }}{% endif %}">
+                        <div class="text">
+                            {% if article.category %}
+                                <p class="category">{{ article.category }}</p>
+                            {% endif %}
+                            <h3 class="eqh">{{ article.title }}</h3>
+                            <div class="date">
+                                <p>{{ article.publish_at|date:"jS F Y" }}{% if article.author %} <span>by {{ article.author|title }}</span>{% endif %}</p>
+                            </div>
+                            <p>{{ article.intro }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                {% for plugin in instance.child_plugin_instances %}
+                    {% render_plugin plugin %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>

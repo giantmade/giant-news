@@ -1,0 +1,13 @@
+<a href="{{ instance.article.get_absolute_url }}" title="Read more" class="card-block__cards__card three-col__col{% if instance.article.category %} {{ instance.article.category.slug }}{% endif %}">
+    <div class="text">
+        {% if instance.article.category %}
+            <p class="category">{{ instance.article.category }}</p>
+        {% endif %}
+        <h3>{{ instance.article.title }}</h3>
+        <div class="date">
+            <p>{{ instance.article.publish_at|date:"jS F Y" }}{% if instance.article.author %} <span>by {{ instance.article.author|title }}</span>{% endif %}</p>
+        </div>
+        <p>{{ instance.article.intro }}</p>
+    </div>
+</a>
+

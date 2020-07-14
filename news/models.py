@@ -5,7 +5,7 @@ from django.utils.functional import cached_property
 from django.utils.html import strip_tags
 from django.test import RequestFactory
 
-from cms.models import PlaceholderField
+from cms.models import PlaceholderField, CMSPlugin
 from cms.plugin_rendering import ContentRenderer
 from filer.fields.image import FilerImageField
 
@@ -152,3 +152,57 @@ class Article(TimestampMixin, PublishingMixin):
         if mins < 1:
             return 1
         return mins
+
+
+class RelatedArticlePlugin(CMSPlugin):
+    """
+    Model for the related article card plugin
+    """
+
+    tags = models.ManyToManyField(
+        to=ArticleTag, blank=True, help_text="Select tags to add the most recent articles."
+    )
+
+    def __str__(self):
+        """
+        String representation of the article card object
+        """
+        return f"Related article block {self.pk}"
+
+    def copy_relations(self, oldinstance):
+        """
+        Copy tag relations from oldinstance to new
+        """
+        self.tags.set(oldinstance.tags.all())
+
+    def get_latest_articles(self, limit=3):
+        """
+        Return a specified number of latest articles based on the tags selected
+        """
+        return (
+            Article.objects.published()
+            .filter(tags__in=self.tags.all())
+            .distinct()
+            .order_by("-created_at")[:limit]
+        )
+
+
+class RelatedArticleCardPlugin(CMSPlugin):
+    """
+    A model for an individual article card plugin
+    """
+
+    article = models.ForeignKey(
+        to=Article,
+        related_name="related_articles",
+        verbose_name="Article",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        """
+        String representation of the article card object
+        """
+        return f"Related article {self.pk}"
