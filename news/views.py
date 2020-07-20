@@ -36,4 +36,3 @@ class ArticleDetail(DetailView):
         if self.queryset is None:
             return Article.objects.published(user=self.request.user)
         return self.queryset
-

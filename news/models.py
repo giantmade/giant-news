@@ -160,7 +160,9 @@ class RelatedArticlePlugin(CMSPlugin):
     """
 
     tags = models.ManyToManyField(
-        to=ArticleTag, blank=True, help_text="Select tags to add the most recent articles."
+        to=ArticleTag,
+        blank=True,
+        help_text="Select tags to add the most recent articles.",
     )
 
     def __str__(self):
