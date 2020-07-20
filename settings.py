@@ -1,7 +1,7 @@
 
 SECRET_KEY = "giant-news"
-DATABASES={"default": {"ENGINE": "django.db.backends.sqlite3"}}
-INSTALLED_APPS=[
+DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3"}}
+INSTALLED_APPS = [
     "cms",
     "treebeard",
     "menus",
@@ -19,8 +19,8 @@ INSTALLED_APPS=[
     "django.contrib.staticfiles",
     "news",
 ]
-ROOT_URLCONF="news.tests.urls"
-TEMPLATES=[
+ROOT_URLCONF = "news.tests.urls"
+TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": ["news/templates"],
@@ -37,11 +37,11 @@ TEMPLATES=[
                 "sekizai.context_processors.sekizai",
                 "cms.context_processors.cms_settings",
             ],
-            "loaders": ["django.template.loaders.app_directories.Loader",],
+            "loaders": ["django.template.loaders.app_directories.Loader"],
         },
     },
 ]
-MIDDLEWARE=[
+MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -58,16 +58,6 @@ SITE_ID = 1
 
 LANGUAGE_CODE = 'en-gb'
 
-# TIME_ZONE = 'UTC'
-#
-# USE_I18N = True
-#
-# USE_L10N = True
-#
-# USE_TZ = True
-
 LANGUAGES = [
     ('en-gb', 'English'),
 ]
-
-# DEFAULT_LANGUAGE = 'en-gb'

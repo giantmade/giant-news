@@ -12,3 +12,6 @@
 
 ## 0.1.3
 - Add related article plugin 
+
+## 0.2.0
+- Add settings and files for tests to be run outside of a django project

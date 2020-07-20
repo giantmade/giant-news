@@ -1,2 +1,2 @@
 - Add a get_settings() function to reduce repeat code in admin.py
-- Add settings file. Will allow tests to be run in app without needing a project
+-Refactor urls/templates/views to not require overriding in a project. See giant-events
