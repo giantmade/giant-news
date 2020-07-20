@@ -32,6 +32,7 @@ pytest = "^5.2"
 django = "2.2"
 django-cms = "^3.7.2"
 black = "^19.10b0"
+pytest-django = "^3.9.0"
 
 [[tool.poetry.source]]
 name = "TestPyPi"
