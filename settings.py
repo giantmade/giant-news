@@ -1,7 +1,12 @@
 
 SECRET_KEY = "giant-news"
 
-DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3"}}
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "giant-news",
+    }
+}
 
 INSTALLED_APPS = [
     "cms",
@@ -16,6 +21,8 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sites",
+    "django.contrib.sessions",
+    "django.contrib.messages",
     "news",
 ]
 ROOT_URLCONF = "news.tests.urls"
@@ -26,8 +33,9 @@ TEMPLATES = [
         "DIRS": ["news/templates"],
         "OPTIONS": {
             "context_processors": [
+                "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.request",
-            ],
+                "django.contrib.messages.context_processors.messages",            ],
         },
     },
 ]
@@ -35,6 +43,7 @@ TEMPLATES = [
 MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
 ]
 
 SITE_ID = 1
