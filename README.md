@@ -13,6 +13,9 @@ To install with the package manager, run:
 You should then add `"news", "easy_thumbnails" and "filer"` to the `INSTALLED_APPS` in your settings file. 
 The detail pages in this app use plugins which are not contained within this app. It is recommended that you include a set of plugins in your project, or use the `giant-plugins` app.
 
+In order to run `django-admin` commands you will need to set the `DJANGO_SETTINGS_MODULE` by running
+
+    $ export DJANGO_SETTINGS_MODULE=settings
 
 ## Configuration
 
