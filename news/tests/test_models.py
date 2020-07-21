@@ -1,7 +1,6 @@
 import pytest
 
 
-@pytest.importorskip("django.settings.INSTALLED_APPS")
 @pytest.mark.django_db
 class TestArticle:
     # import models here to avoid error
@@ -9,7 +8,7 @@ class TestArticle:
 
     @pytest.fixture
     def author_instance(self):
-        return self.Author.objects.create(first_name="John", last_name="Doe")
+        return self.Author.objects.create(name="John Doe")
 
     @pytest.fixture
     def article_instance(self, author_instance):
@@ -19,20 +18,18 @@ class TestArticle:
         assert str(article_instance) == f"Title article by John Doe"
 
 
-@pytest.importorskip("django.settings.INSTALLED_APPS")
 class TestArticleTag:
     # import models here to avoid error
     from news.models import ArticleTag
 
     @pytest.fixture
     def article_tag_instance(self):
-        return self.ArticleTag(tag="Tag", slug="tag")
+        return self.ArticleTag(tag="Tag")
 
     def test_str(self, article_tag_instance):
         assert str(article_tag_instance) == "Tag"
 
 
-@pytest.importorskip("django.settings.INSTALLED_APPS")
 class TestAuthor:
     # import models here to avoid error
     from news.models import Author
@@ -45,14 +42,13 @@ class TestAuthor:
         assert str(author_instance) == "John Doe"
 
 
-@pytest.importorskip("django.settings.INSTALLED_APPS")
 class TestCategory:
     # import models here to avoid error
     from news.models import Category
 
     @pytest.fixture
     def category_instance(self):
-        return self.Category(category="Category")
+        return self.Category(name="Category")
 
     def test_str(self, category_instance):
         assert str(category_instance) == "Category"

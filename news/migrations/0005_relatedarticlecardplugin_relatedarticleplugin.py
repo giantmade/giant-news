@@ -7,31 +7,66 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0022_auto_20180620_1551'),
-        ('news', '0004_article_category'),
+        ("cms", "0022_auto_20180620_1551"),
+        ("news", "0004_article_category"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='RelatedArticleCardPlugin',
+            name="RelatedArticleCardPlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='news_relatedarticlecardplugin', serialize=False, to='cms.CMSPlugin')),
-                ('article', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='related_articles', to='news.Article', verbose_name='Article')),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="news_relatedarticlecardplugin",
+                        serialize=False,
+                        to="cms.CMSPlugin",
+                    ),
+                ),
+                (
+                    "article",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="related_articles",
+                        to="news.Article",
+                        verbose_name="Article",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('cms.cmsplugin',),
+            options={"abstract": False,},
+            bases=("cms.cmsplugin",),
         ),
         migrations.CreateModel(
-            name='RelatedArticlePlugin',
+            name="RelatedArticlePlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='news_relatedarticleplugin', serialize=False, to='cms.CMSPlugin')),
-                ('tags', models.ManyToManyField(blank=True, help_text='Select tags to add the most recent articles.', to='news.ArticleTag')),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="news_relatedarticleplugin",
+                        serialize=False,
+                        to="cms.CMSPlugin",
+                    ),
+                ),
+                (
+                    "tags",
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text="Select tags to add the most recent articles.",
+                        to="news.ArticleTag",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('cms.cmsplugin',),
+            options={"abstract": False,},
+            bases=("cms.cmsplugin",),
         ),
     ]
