@@ -40,7 +40,7 @@ class TestArticleView:
 
         article = article_instance
         response = client.get(
-            reverse("news:news-detail", kwargs={"slug": article.slug})
+            reverse("news:detail", kwargs={"slug": article.slug})
         )
         assert response.status_code == 200
 
@@ -49,7 +49,7 @@ class TestArticleView:
         Test the index view returns the correct status code
         """
         client = Client()
-        response = client.get(reverse("news:news-index"))
+        response = client.get(reverse("news:index"))
         assert response.status_code == 200
 
     def test_unpublished_returns_404(
@@ -69,7 +69,7 @@ class TestArticleView:
         )
 
         response = client.get(
-            reverse("news:news-detail", kwargs={"slug": article.slug})
+            reverse("news:detail", kwargs={"slug": article.slug})
         )
         assert response.status_code == 404
 
@@ -79,7 +79,7 @@ class TestArticleView:
         """
         client = Client()
         article = article_instance
-        response = client.get(reverse("news:news-index"))
+        response = client.get(reverse("news:index"))
 
         assert article in response.context["object_list"]
         assert article in self.models.Article.objects.published()

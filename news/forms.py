@@ -1,6 +1,6 @@
 from django import forms
 
-from news.models import ArticleTag, Article
+from news.models import ArticleTag
 
 
 class NewsSearchForm(forms.Form):
@@ -16,6 +16,7 @@ class NewsSearchForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.queryset = kwargs.pop("queryset")
+        super().__init__(*args, **kwargs)
 
     def process(self):
         """
