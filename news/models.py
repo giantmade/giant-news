@@ -123,7 +123,7 @@ class Article(TimestampMixin, PublishingMixin):
         """
         Builds the url for the article object
         """
-        url = getattr(settings, "NEWS_ABSOLUTE_URL", "news:news-detail")
+        url = getattr(settings, "NEWS_ABSOLUTE_URL", "news:detail")
         return reverse(url, kwargs={"slug": self.slug})
 
     @cached_property
