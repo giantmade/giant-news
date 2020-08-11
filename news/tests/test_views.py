@@ -1,6 +1,9 @@
-from django.test import Client
+from django.test import Client, RequestFactory
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.auth.models import User
+
+from news import models, forms, views
 
 import pytest
 
@@ -11,19 +14,27 @@ class TestArticleView:
     Test case for the Article app views
     """
 
-    from news import models
+    @pytest.fixture
+    def view_instance(self):
+        url = reverse("news:index")
+        request = RequestFactory().get(url)
+        request.user = User(pk=1)
+        view = views.ArticleIndex()
+        view.kwargs = {}
+        view.request = request
+        return view
 
     @pytest.fixture
     def author_instance(self):
-        return self.models.Author.objects.create(name="John Doe")
+        return models.Author.objects.create(name="John Doe")
 
     @pytest.fixture
     def category_instance(self):
-        return self.models.Category.objects.create(name="Category")
+        return models.Category.objects.create(name="Category")
 
     @pytest.fixture
     def article_instance(self, author_instance, category_instance):
-        return self.models.Article.objects.create(
+        return models.Article.objects.create(
             title="Article",
             slug="article",
             author=author_instance,
@@ -39,9 +50,7 @@ class TestArticleView:
         client = Client()
 
         article = article_instance
-        response = client.get(
-            reverse("news:news-detail", kwargs={"slug": article.slug})
-        )
+        response = client.get(reverse("news:detail", kwargs={"slug": article.slug}))
         assert response.status_code == 200
 
     def test_article_index(self, article_instance):
@@ -49,7 +58,7 @@ class TestArticleView:
         Test the index view returns the correct status code
         """
         client = Client()
-        response = client.get(reverse("news:news-index"))
+        response = client.get(reverse("news:index"))
         assert response.status_code == 200
 
     def test_unpublished_returns_404(
@@ -59,7 +68,7 @@ class TestArticleView:
         Test to check that an unpublished event returns a 404
         """
         client = Client()
-        article = self.models.Article.objects.create(
+        article = models.Article.objects.create(
             title="Article Two",
             slug="article-two",
             author=author_instance,
@@ -68,18 +77,30 @@ class TestArticleView:
             publish_at=timezone.now() - timezone.timedelta(hours=1),
         )
 
-        response = client.get(
-            reverse("news:news-detail", kwargs={"slug": article.slug})
-        )
+        response = client.get(reverse("news:detail", kwargs={"slug": article.slug}))
         assert response.status_code == 404
 
-    def test_update_context(self, article_instance):
+    def test_get_queryset(self, mocker, view_instance):
         """
-        Test the context update returns published articles queryset
+        Test the view get_queryset returns the published qs
         """
-        client = Client()
-        article = article_instance
-        response = client.get(reverse("news:news-index"))
+        mock_qs = mocker.Mock(return_value="published")
+        mocker.patch.object(models.ArticleQuerySet, "published", mock_qs)
+        qs = view_instance.get_queryset()
 
-        assert article in response.context["object_list"]
-        assert article in self.models.Article.objects.published()
+        assert qs == "published"
+        mock_qs.assert_called_once_with(user=view_instance.request.user)
+
+    def test_update_context(self, article_instance, view_instance, mocker):
+        """
+        Test the context update returns published articles queryset and the NewsSearchForm
+        """
+        mock_qs = mocker.MagicMock(return_value="published")
+
+        view = view_instance
+        view.object_list = mock_qs
+
+        context = view.get_context_data()
+
+        assert context["article_index"] is mock_qs
+        assert isinstance(context["form"], forms.NewsSearchForm)

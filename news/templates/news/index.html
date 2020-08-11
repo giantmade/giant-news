@@ -11,7 +11,22 @@
             </div>
         </div>
     </section>
+    <form action="{{ request.url }}" method="get">
+        <div class="tags">
+            <ul>
+                {% for value, label in form.tags.field.choices %}
+                    <li>
+                        <label for="{{ form.tags.name }}">
+                            <input type="checkbox" name="{{ form.tags.name }}" value="{{ value }}"{% if value|slugify in form.tags.data %} checked{% endif %}/>
+                            <span>{{ label }}</span>
+                         </label>
+                    </li>
+                 {% endfor %}
+                <button class="btn" type="submit">Filter</button>
 
+            </ul>
+        </div>
+    </form>
     <section class="text-image-block">
         <div class="wrapper">
             {% for article in article_index %}
@@ -33,6 +48,24 @@
             {% empty %}
                 <h3>No articles currently listed</h3>
             {% endfor %}
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
+
     </section>
 {% endblock body %}
