@@ -82,7 +82,7 @@ class TestArticleView:
 
     def test_get_queryset(self, mocker, view_instance):
         """
-        Test the detail view get_queryset returns the published qs
+        Test the view get_queryset returns the published qs
         """
         mock_qs = mocker.Mock(return_value="published")
         mocker.patch.object(models.ArticleQuerySet, "published", mock_qs)
@@ -96,7 +96,6 @@ class TestArticleView:
         Test the context update returns published articles queryset and the NewsSearchForm
         """
         mock_qs = mocker.MagicMock(return_value="published")
-        mocker.patch.object(models.ArticleQuerySet, "published", mock_qs)
 
         view = view_instance
         view.object_list = mock_qs
