@@ -23,4 +23,6 @@ class NewsSearchForm(forms.Form):
         Additionally apply tags filter to the results.
         """
         tags = self.cleaned_data.get("tags")
-        return self.queryset.filter(tags__in=tags)
+        if tags:
+            self.queryset = self.queryset.filter(tags__in=tags)
+        return self.queryset
