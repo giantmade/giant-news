@@ -37,6 +37,6 @@ class NewsSearchForm(forms.Form):
                 Q(title__icontains=search_query) | Q(intro__icontains=search_query)
             )
         if tags:
-            self.queryset = self.queryset = self.queryset.filter(tags__in=tags)
+            self.queryset =self.queryset.filter(tags__in=tags)
 
         return self.queryset
