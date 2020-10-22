@@ -65,7 +65,7 @@ class TestArticleView:
         self, article_instance, author_instance, category_instance
     ):
         """
-        Test to check that an unpublished event returns a 404
+        Test to check that an unpublished article returns a 404
         """
         client = Client()
         article = models.Article.objects.create(
