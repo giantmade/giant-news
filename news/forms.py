@@ -6,7 +6,7 @@ from news.models import ArticleTag
 
 class NewsSearchForm(forms.Form):
     """
-    Form to provide search filtering for events.
+    Form to provide search filtering for articles.
     """
 
     search = forms.CharField(

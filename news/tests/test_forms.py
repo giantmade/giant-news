@@ -4,7 +4,7 @@ from news import forms
 
 
 @pytest.mark.django_db
-class TestEventFilterForm:
+class TestNewsFilterForm:
     @pytest.fixture
     def form(self, mocker):
         return forms.NewsSearchForm(queryset=mocker.Mock())
