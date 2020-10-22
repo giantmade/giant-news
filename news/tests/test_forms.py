@@ -29,6 +29,7 @@ class TestNewsFilterForm:
         result = form.process()
 
         assert result == articles
+        articles.filter.assert_not_called()
 
     def test_filter_by_tags(self, mocker, form):
         articles = form.queryset
@@ -48,3 +49,4 @@ class TestNewsFilterForm:
         result = form.process()
 
         assert result == articles
+        articles.filter.assert_not_called()
