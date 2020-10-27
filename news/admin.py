@@ -43,7 +43,7 @@ class ArticleAdmin(admin.ModelAdmin):
         ["title", "author", "category", "is_published", "created_at"],
     )
     search_fields = getattr(
-        settings, "ARTICLE_ADMIN_SEARCH_FIELDS", ["title", "author"]
+        settings, "ARTICLE_ADMIN_SEARCH_FIELDS", ["title", "author__name", "intro"]
     )
     prepopulated_fields = {"slug": ["title"]}
 
