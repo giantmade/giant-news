@@ -207,7 +207,7 @@ class RelatedArticlePlugin(CMSPlugin):
         """
         return (
             Article.objects.published()
-            .filter(category__in=self.category)
+            .filter(category=self.category)
             .distinct()
             .order_by("-created_at")
         )
@@ -227,7 +227,7 @@ class RelatedArticlePlugin(CMSPlugin):
         """
         Return a default queryset
         """
-        return Article.objects.published().distinct().order_by("-created_at")
+        return Article.objects.published().order_by("-created_at")
 
     def get_articles(self):
         """
@@ -235,7 +235,7 @@ class RelatedArticlePlugin(CMSPlugin):
         """
         queryset = self.recent_articles()
 
-        if self.tags.all():
+        if self.tags:
             queryset = self.filter_by_tags()
         if self.category:
             queryset = self.filter_by_category()
