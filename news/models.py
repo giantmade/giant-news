@@ -159,10 +159,18 @@ class RelatedArticlePlugin(CMSPlugin):
     Model for the related article card plugin
     """
 
+    num_articles = models.PositiveIntegerField(default=3)
     tags = models.ManyToManyField(
         to=ArticleTag,
         blank=True,
         help_text="Select tags to add the most recent articles.",
+    )
+    category = models.ForeignKey(
+        to=Category,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text="Select a category to add the most recent articles.",
     )
 
     def __str__(self):
@@ -177,16 +185,53 @@ class RelatedArticlePlugin(CMSPlugin):
         """
         self.tags.set(oldinstance.tags.all())
 
-    def get_latest_articles(self, limit=3):
+    @property
+    def category_articles(self):
         """
-        Return a specified number of latest articles based on the tags selected
+        Return a queryset for a category
+        """
+        return (
+            Article.objects.published()
+            .filter(category__in=self.category)
+            .distinct()
+            .order_by("-created_at")[: self.num_articles]
+        )
+
+    @property
+    def tags_articles(self):
+        """
+        Return a queryset for specified tags
         """
         return (
             Article.objects.published()
             .filter(tags__in=self.tags.all())
             .distinct()
-            .order_by("-created_at")[:limit]
+            .order_by("-created_at")[: self.num_articles]
         )
+
+    @property
+    def articles_recent(self):
+        """
+        Return a default queryset
+        """
+        return (
+            Article.objects.published()
+            .distinct()
+            .order_by("-created_at")[: self.num_articles]
+        )
+
+    def get_articles(self):
+        """
+        Return a queryset based on what the user chooses on the frontend
+        """
+        queryset = self.articles_recent
+
+        if self.tags.all():
+            queryset = self.tags_articles
+        if self.category:
+            queryset = self.category_articles
+
+        return queryset
 
 
 class RelatedArticleCardPlugin(CMSPlugin):

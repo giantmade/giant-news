@@ -24,8 +24,7 @@ class RelatedArticlePlugin(CMSPluginBase):
         Override the default render to allow the user to set a custom number of articles to be shown
         """
         context = super().render(context, instance, placeholder)
-        limit = getattr(settings, "RELATED_ARTICLES_LIMIT", 3)
-        context["latest_articles"] = instance.get_latest_articles(limit)
+        context["latest_articles"] = instance.get_articles()
         return context
 
 
