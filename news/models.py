@@ -159,18 +159,34 @@ class RelatedArticlePlugin(CMSPlugin):
     Model for the related article card plugin
     """
 
-    num_articles = models.PositiveIntegerField(default=3)
+    num_articles = models.PositiveIntegerField(
+        default=3,
+        help_text="""
+        This will decide how many articles to return. By
+        default this plugin will return this number articles
+        based on when they were created. You can filter the
+        articles more using the fields below
+        """,
+    )
     tags = models.ManyToManyField(
         to=ArticleTag,
         blank=True,
-        help_text="Select tags to add the most recent articles.",
+        help_text="""
+        Limit recent articles based on tags. This is the 
+        first priority in what articles are returned and will be overriden
+        if you also select a category.
+        """,
     )
     category = models.ForeignKey(
         to=Category,
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        help_text="Select a category to add the most recent articles.",
+        help_text="""
+        Limit recent articles based on a category. This will
+        override the tags that you choose and will filter on this category
+        ONLY.
+        """,
     )
 
     def __str__(self):
@@ -186,7 +202,7 @@ class RelatedArticlePlugin(CMSPlugin):
         self.tags.set(oldinstance.tags.all())
 
     @property
-    def category_articles(self):
+    def filter_by_category(self):
         """
         Return a queryset for a category
         """
@@ -198,7 +214,7 @@ class RelatedArticlePlugin(CMSPlugin):
         )
 
     @property
-    def tags_articles(self):
+    def filter_by_tags(self):
         """
         Return a queryset for specified tags
         """
@@ -210,7 +226,7 @@ class RelatedArticlePlugin(CMSPlugin):
         )
 
     @property
-    def articles_recent(self):
+    def recent_articles(self):
         """
         Return a default queryset
         """
