@@ -159,10 +159,34 @@ class RelatedArticlePlugin(CMSPlugin):
     Model for the related article card plugin
     """
 
+    num_articles = models.PositiveIntegerField(
+        default=3,
+        help_text="""
+        This will decide how many articles to return. By
+        default this plugin will return this number articles
+        based on when they were created. You can filter the
+        articles more using the fields below
+        """,
+    )
     tags = models.ManyToManyField(
         to=ArticleTag,
         blank=True,
-        help_text="Select tags to add the most recent articles.",
+        help_text="""
+        Limit recent articles based on tags. This is the 
+        first priority in what articles are returned and will be overriden
+        if you also select a category.
+        """,
+    )
+    category = models.ForeignKey(
+        to=Category,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text="""
+        Limit recent articles based on a category. This will
+        override the tags that you choose and will filter on this category
+        ONLY.
+        """,
     )
 
     def __str__(self):
@@ -177,16 +201,49 @@ class RelatedArticlePlugin(CMSPlugin):
         """
         self.tags.set(oldinstance.tags.all())
 
-    def get_latest_articles(self, limit=3):
+    @property
+    def filter_by_category(self):
         """
-        Return a specified number of latest articles based on the tags selected
+        Return a queryset for a category
+        """
+        return (
+            Article.objects.published()
+            .filter(category__in=self.category)
+            .distinct()
+            .order_by("-created_at")
+        )
+
+    @property
+    def filter_by_tags(self):
+        """
+        Return a queryset for specified tags
         """
         return (
             Article.objects.published()
             .filter(tags__in=self.tags.all())
             .distinct()
-            .order_by("-created_at")[:limit]
+            .order_by("-created_at")
         )
+
+    @property
+    def recent_articles(self):
+        """
+        Return a default queryset
+        """
+        return Article.objects.published().distinct().order_by("-created_at")
+
+    def get_articles(self):
+        """
+        Return a queryset based on what the user chooses on the frontend
+        """
+        queryset = self.articles_recent
+
+        if self.tags.all():
+            queryset = self.tags_articles
+        if self.category:
+            queryset = self.category_articles
+
+        return queryset[: self.num_articles]
 
 
 class RelatedArticleCardPlugin(CMSPlugin):
