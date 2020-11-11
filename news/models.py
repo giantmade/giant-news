@@ -194,7 +194,7 @@ class RelatedArticlePlugin(CMSPlugin):
             Article.objects.published()
             .filter(category__in=self.category)
             .distinct()
-            .order_by("-created_at")[: self.num_articles]
+            .order_by("-created_at")
         )
 
     @property
@@ -206,7 +206,7 @@ class RelatedArticlePlugin(CMSPlugin):
             Article.objects.published()
             .filter(tags__in=self.tags.all())
             .distinct()
-            .order_by("-created_at")[: self.num_articles]
+            .order_by("-created_at")
         )
 
     @property
@@ -217,7 +217,7 @@ class RelatedArticlePlugin(CMSPlugin):
         return (
             Article.objects.published()
             .distinct()
-            .order_by("-created_at")[: self.num_articles]
+            .order_by("-created_at")
         )
 
     def get_articles(self):
@@ -231,7 +231,7 @@ class RelatedArticlePlugin(CMSPlugin):
         if self.category:
             queryset = self.category_articles
 
-        return queryset
+        return queryset[: self.num_articles]
 
 
 class RelatedArticleCardPlugin(CMSPlugin):
