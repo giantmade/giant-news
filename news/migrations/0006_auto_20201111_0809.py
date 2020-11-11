@@ -7,23 +7,36 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('news', '0005_relatedarticlecardplugin_relatedarticleplugin'),
+        ("news", "0005_relatedarticlecardplugin_relatedarticleplugin"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='relatedarticleplugin',
-            name='category',
-            field=models.ForeignKey(blank=True, help_text='\n        Limit recent articles based on a category. This will\n        override the tags that you choose and will filter on this category\n        ONLY.\n        ', null=True, on_delete=django.db.models.deletion.SET_NULL, to='news.Category'),
+            model_name="relatedarticleplugin",
+            name="category",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="\n        Limit recent articles based on a category. This will\n        override the tags that you choose and will filter on this category\n        ONLY.\n        ",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="news.Category",
+            ),
         ),
         migrations.AddField(
-            model_name='relatedarticleplugin',
-            name='num_articles',
-            field=models.PositiveIntegerField(default=3, help_text='\n        This will decide how many articles to return. By\n        default this plugin will return this number articles\n        based on when they were created. You can filter the\n        articles more using the fields below\n        '),
+            model_name="relatedarticleplugin",
+            name="num_articles",
+            field=models.PositiveIntegerField(
+                default=3,
+                help_text="\n        This will decide how many articles to return. By\n        default this plugin will return this number articles\n        based on when they were created. You can filter the\n        articles more using the fields below\n        ",
+            ),
         ),
         migrations.AlterField(
-            model_name='relatedarticleplugin',
-            name='tags',
-            field=models.ManyToManyField(blank=True, help_text='\n        Limit recent articles based on tags. This is the \n        first priority in what articles are returned and will be overriden\n        if you also select a category.\n        ', to='news.ArticleTag'),
+            model_name="relatedarticleplugin",
+            name="tags",
+            field=models.ManyToManyField(
+                blank=True,
+                help_text="\n        Limit recent articles based on tags. This is the \n        first priority in what articles are returned and will be overriden\n        if you also select a category.\n        ",
+                to="news.ArticleTag",
+            ),
         ),
     ]

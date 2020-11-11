@@ -230,11 +230,7 @@ class RelatedArticlePlugin(CMSPlugin):
         """
         Return a default queryset
         """
-        return (
-            Article.objects.published()
-            .distinct()
-            .order_by("-created_at")
-        )
+        return Article.objects.published().distinct().order_by("-created_at")
 
     def get_articles(self):
         """
