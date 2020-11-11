@@ -201,7 +201,6 @@ class RelatedArticlePlugin(CMSPlugin):
         """
         self.tags.set(oldinstance.tags.all())
 
-    @property
     def filter_by_category(self):
         """
         Return a queryset for a category
@@ -213,7 +212,6 @@ class RelatedArticlePlugin(CMSPlugin):
             .order_by("-created_at")
         )
 
-    @property
     def filter_by_tags(self):
         """
         Return a queryset for specified tags
@@ -225,7 +223,6 @@ class RelatedArticlePlugin(CMSPlugin):
             .order_by("-created_at")
         )
 
-    @property
     def recent_articles(self):
         """
         Return a default queryset
@@ -236,12 +233,12 @@ class RelatedArticlePlugin(CMSPlugin):
         """
         Return a queryset based on what the user chooses on the frontend
         """
-        queryset = self.articles_recent
+        queryset = self.recent_articles()
 
         if self.tags.all():
-            queryset = self.tags_articles
+            queryset = self.filter_by_tags()
         if self.category:
-            queryset = self.category_articles
+            queryset = self.filter_by_category()
 
         return queryset[: self.num_articles]
 
