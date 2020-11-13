@@ -235,7 +235,7 @@ class RelatedArticlePlugin(CMSPlugin):
         """
         queryset = self.recent_articles()
 
-        if self.tags:
+        if self.tags.exists():
             queryset = self.filter_by_tags()
         if self.category:
             queryset = self.filter_by_category()
