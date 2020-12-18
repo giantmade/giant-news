@@ -18,7 +18,7 @@ class ArticleIndex(ListView):
         """
         Override get method here to allow us to filter using tags
         """
-        queryset = models.Article.objects.published(user=self.request.user)
+        queryset = models.Article.objects.published(user=self.request.user).order_by("-publish_at")
         form = forms.NewsSearchForm(data=self.request.GET or None, queryset=queryset)
         if form.is_valid():
             queryset = form.process()
