@@ -83,6 +83,8 @@ class Article(TimestampMixin, PublishingMixin):
     Model for creating and storing and Article object
     """
 
+    # TODO: Maybe add plugin text as a field so we can search against it
+
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
     author = models.ForeignKey(
@@ -109,6 +111,7 @@ class Article(TimestampMixin, PublishingMixin):
     objects = ArticleQuerySet.as_manager()
 
     class Meta:
+        # TODO: change this to -publish_at
         ordering = ["-created_at"]
         verbose_name = "Article"
         verbose_name_plural = "Articles"
@@ -205,6 +208,8 @@ class RelatedArticlePlugin(CMSPlugin):
         """
         Return a queryset for a category
         """
+        # TODO: remove extra filter when Meta ordering changes
+
         return (
             Article.objects.published()
             .filter(category=self.category)
@@ -227,6 +232,7 @@ class RelatedArticlePlugin(CMSPlugin):
         """
         Return a default queryset
         """
+        # TODO: remove extra filter when Meta ordering changes
         return Article.objects.published().order_by("-created_at")
 
     def get_articles(self):

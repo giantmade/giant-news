@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "giant-news"
-version = "0.3.2.4"
+version = "0.3.3"
 description = "A small reusable package that adds a News app to a project"
 authors = ["Will-Hoey <will.hoey@giantmade.com>"]
 license = "MIT"
@@ -24,17 +24,19 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
-giant-mixins = "^0.1.1"
-django-filer = "^1.7.1"
+giant-mixins = "*"
+django-filer = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
-django = "2.2"
-django-cms = "^3.7.2"
+django = "^3"
+django-cms = "^3"
 black = "^19.10b0"
 pytest-django = "^3.9.0"
 pytest-cov = "^2.10.0"
 pytest-mock = "^3.2.0"
+six = "^1.15.0"
+django-polymorphic = "3.0.0"
 
 [[tool.poetry.source]]
 name = "TestPyPi"
