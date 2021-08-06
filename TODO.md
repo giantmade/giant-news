@@ -1,2 +1,0 @@
-- Add a get_settings() function to reduce repeat code in admin.py
--Refactor urls/templates/views to not require overriding in a project. See giant-events

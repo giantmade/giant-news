@@ -23,6 +23,7 @@ class RelatedArticlePlugin(CMSPluginBase):
         """
         Override the default render to allow the user to set a custom number of articles to be shown
         """
+        # TODO: prevent current page article from being repeated in the get_articles
         context = super().render(context, instance, placeholder)
         context["latest_articles"] = instance.get_articles()
         return context
