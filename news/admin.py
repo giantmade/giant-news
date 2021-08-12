@@ -69,7 +69,17 @@ class ArticleAdmin(admin.ModelAdmin):
             ("Image", {"fields": ["photo"]}),
             (
                 "Meta Data",
-                {"classes": ("collapse",), "fields": ["created_at", "updated_at"]},
+                {
+                    "classes": (
+                        "collapse",
+                    ),
+                    "fields": [
+                        "meta_title",
+                        "meta_description",
+                        "created_at",
+                        "updated_at",
+                    ]
+                },
             ),
         ],
     )
