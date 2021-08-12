@@ -107,6 +107,8 @@ class Article(TimestampMixin, PublishingMixin):
     category = models.ForeignKey(
         to=Category, on_delete=models.CASCADE, related_name="articles"
     )
+    meta_title = models.CharField(max_length=160, blank=True)
+    meta_description = models.CharField(max_length=255, blank=True)
 
     objects = ArticleQuerySet.as_manager()
 
