@@ -83,8 +83,6 @@ class Article(TimestampMixin, PublishingMixin):
     Model for creating and storing and Article object
     """
 
-    # TODO: Maybe add plugin text as a field so we can search against it
-
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
     author = models.ForeignKey(to=Author, on_delete=models.CASCADE, related_name="articles")
@@ -104,11 +102,12 @@ class Article(TimestampMixin, PublishingMixin):
     meta_title = models.CharField(max_length=160, blank=True)
     meta_description = models.CharField(max_length=255, blank=True)
 
+    plugin_text = models.TextField(blank=True, editable=False)
+
     objects = ArticleQuerySet.as_manager()
 
     class Meta:
-        # TODO: change this to -publish_at
-        ordering = ["-created_at"]
+        ordering = ["-publish_at"]
         verbose_name = "Article"
         verbose_name_plural = "Articles"
 
@@ -117,6 +116,14 @@ class Article(TimestampMixin, PublishingMixin):
         Returns the string representation of the article object
         """
         return f"{self.title} article by {self.author}"
+
+    def save(self, *args, **kwargs):
+        """
+        Override save method so we can store the plugin text
+        """
+        if self.content:
+            self.plugin_text = self.plain_text
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         """
@@ -148,7 +155,7 @@ class Article(TimestampMixin, PublishingMixin):
         """
         word_count = len(self.plain_text.split())
         mins = round(word_count / 240.0)
-        if mins < 1:
+        if word_count and mins < 1:
             return 1
         return mins
 
@@ -171,7 +178,7 @@ class RelatedArticlePlugin(CMSPlugin):
         to=ArticleTag,
         blank=True,
         help_text="""
-        Limit recent articles based on tags. This is the 
+        Limit recent articles based on tags. This is the
         first priority in what articles are returned and will be overriden
         if you also select a category.
         """,
@@ -204,13 +211,11 @@ class RelatedArticlePlugin(CMSPlugin):
         """
         Return a queryset for a category
         """
-        # TODO: remove extra filter when Meta ordering changes
 
         return (
             Article.objects.published()
             .filter(category=self.category)
             .distinct()
-            .order_by("-created_at")
         )
 
     def filter_by_tags(self):
@@ -221,15 +226,13 @@ class RelatedArticlePlugin(CMSPlugin):
             Article.objects.published()
             .filter(tags__in=self.tags.all())
             .distinct()
-            .order_by("-created_at")
         )
 
     def recent_articles(self):
         """
         Return a default queryset
         """
-        # TODO: remove extra filter when Meta ordering changes
-        return Article.objects.published().order_by("-created_at")
+        return Article.objects.published()
 
     def get_articles(self):
         """
