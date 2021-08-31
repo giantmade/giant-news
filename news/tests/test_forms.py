@@ -50,3 +50,23 @@ class TestNewsFilterForm:
 
         assert result == articles
         articles.filter.assert_not_called()
+
+    def test_filter_by_category(self, mocker, form):
+        articles = form.queryset
+        articles.filter.return_value = "qs"
+        clean_data = {
+            "categories": "blog",
+        }
+        form.cleaned_data = clean_data
+        result = form.process()
+
+        assert result == "qs"
+        articles.filter.assert_called_once_with(category__in="blog")
+
+    def test_filter_by_category_no_data(self, mocker, form):
+        articles = form.queryset
+        form.cleaned_data = {}
+        result = form.process()
+
+        assert result == articles
+        articles.filter.assert_not_called()

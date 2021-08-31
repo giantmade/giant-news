@@ -61,9 +61,7 @@ class TestArticleView:
         response = client.get(reverse("news:index"))
         assert response.status_code == 200
 
-    def test_unpublished_returns_404(
-        self, article_instance, author_instance, category_instance
-    ):
+    def test_unpublished_returns_404(self, article_instance, author_instance, category_instance):
         """
         Test to check that an unpublished article returns a 404
         """
