@@ -87,9 +87,7 @@ class Article(TimestampMixin, PublishingMixin):
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
-    author = models.ForeignKey(
-        to=Author, on_delete=models.CASCADE, related_name="articles"
-    )
+    author = models.ForeignKey(to=Author, on_delete=models.CASCADE, related_name="articles")
     photo = FilerImageField(
         related_name="%(app_label)s_%(class)s_images",
         on_delete=models.SET_NULL,
@@ -98,15 +96,11 @@ class Article(TimestampMixin, PublishingMixin):
     )
 
     intro = models.CharField(max_length=255)
-    content = PlaceholderField(
-        slotname="article_content", related_name="article_content"
-    )
+    content = PlaceholderField(slotname="article_content", related_name="article_content")
     tags = models.ManyToManyField(
         to=ArticleTag, verbose_name="Tags", related_name="%(app_label)s_%(class)s_tags"
     )
-    category = models.ForeignKey(
-        to=Category, on_delete=models.CASCADE, related_name="articles"
-    )
+    category = models.ForeignKey(to=Category, on_delete=models.CASCADE, related_name="articles")
     meta_title = models.CharField(max_length=160, blank=True)
     meta_description = models.CharField(max_length=255, blank=True)
 

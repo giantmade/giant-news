@@ -15,3 +15,7 @@
 
 ## 0.2.0
 - Add settings and files for tests to be run outside of a django project
+
+
+## 0.4
+- Add categories to the default filtering form
