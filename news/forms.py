@@ -38,7 +38,9 @@ class NewsSearchForm(forms.Form):
 
         if search_query:
             self.queryset = self.queryset.filter(
-                Q(title__icontains=search_query) | Q(intro__icontains=search_query)
+                Q(title__icontains=search_query)
+                | Q(intro__icontains=search_query)
+                | Q(plugin_text__icontains=search_query)
             )
         if tags:
             self.queryset = self.queryset.filter(tags__in=tags)

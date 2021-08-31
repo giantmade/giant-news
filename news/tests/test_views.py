@@ -83,11 +83,11 @@ class TestArticleView:
         Test the view get_queryset returns the published qs
         """
         mock_qs = mocker.Mock(return_value="published")
-        mocker.patch.object(models.ArticleQuerySet, "order_by", mock_qs)
+        mocker.patch.object(models.ArticleQuerySet, "published", mock_qs)
         qs = view_instance.get_queryset()
 
         assert qs == "published"
-        mock_qs.assert_called_once_with("-publish_at")
+        mock_qs.assert_called_once_with(user=mocker.ANY)
 
     def test_update_context(self, article_instance, view_instance, mocker):
         """

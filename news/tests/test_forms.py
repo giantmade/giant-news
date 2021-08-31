@@ -20,7 +20,7 @@ class TestNewsFilterForm:
 
         assert result == "qs"
         articles.filter.assert_called_once_with(
-            Q(title__icontains="great") | Q(intro__icontains="great")
+            Q(title__icontains="great") | Q(intro__icontains="great") | Q(plugin_text__icontains="great")
         )
 
     def test_filter_by_search_no_data(self, mocker, form):

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.views.generic import DetailView, ListView
 
 from . import models, forms
@@ -11,14 +12,13 @@ class ArticleIndex(ListView):
     model = models.Article
     context_object_name = "article_index"
     template_name = "news/index.html"
-    # This could be customisable with a getattr call?
-    paginate_by = 8
+    paginate_by = getattr(settings, "NEWS_PAGINATE_BY", 8)
 
     def get_queryset(self):
         """
         Override get method here to allow us to filter using tags
         """
-        queryset = models.Article.objects.published(user=self.request.user).order_by("-publish_at")
+        queryset = models.Article.objects.published(user=self.request.user)
         form = forms.NewsSearchForm(data=self.request.GET or None, queryset=queryset)
         if form.is_valid():
             queryset = form.process()
