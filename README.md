@@ -36,6 +36,9 @@ This application exposes the following settings:
 
 - `RELATED_ARTICLES_LIMIT` allows the user to set how many articles are pulled through in the related articles plugin, the default is 3. Must be an int
 
+## Sitemap
+In order to add published articles to your sitemap, import the sitemaps file and add it to your `sitemaps` dict. This is usually contained within the main `urls.py` file.
+
 ## URLs
 
 Add the following to `core.urls` for general functionality:

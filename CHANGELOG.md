@@ -19,3 +19,6 @@
 
 ## 0.4
 - Add categories to the default filtering form
+
+## 0.5.1
+- Add sitemap
