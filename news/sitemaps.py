@@ -3,13 +3,13 @@ from django.contrib.sitemaps import Sitemap
 from .models import Article
 
 
-class EventSitemap(Sitemap):
+class ArticleSitemap(Sitemap):
     changefreq = "monthly"
     priority = 0.5
 
     def items(self):
         """
-        Get all published events
+        Get all published articles
         """
         return Article.objects.published()
 
