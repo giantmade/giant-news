@@ -4,26 +4,7 @@ from django.contrib import admin
 from .models import Article, ArticleTag, Author, Category
 
 
-@admin.register(ArticleTag)
-class ArticleTagAdmin(admin.ModelAdmin):
-    """
-    Admin config for ArticleTag model
-    """
-
-    list_display = getattr(settings, "ARTICLETAG_ADMIN_LIST_DISPLAY", ["tag", "created_at"])
-
-    fieldsets = getattr(
-        settings,
-        "ARTICLETAG_ADMIN_FIELDSETS",
-        [
-            (None, {"fields": ["tag", "slug"]}),
-            ("Meta Data", {"classes": ("collapse",), "fields": ["created_at", "updated_at"]},),
-        ],
-    )
-    readonly_fields = getattr(
-        settings, "ARTICLETAG_ADMIN_READONLY_FIELDS", ["created_at", "updated_at"],
-    )
-    prepopulated_fields = {"slug": ["tag"]}
+READONLY_FIELDS = ["created_at", "updated_at"]
 
 
 @admin.register(Article)
@@ -66,15 +47,32 @@ class ArticleAdmin(admin.ModelAdmin):
                 "Meta Data",
                 {
                     "classes": ("collapse",),
-                    "fields": ["meta_title", "meta_description", "created_at", "updated_at",],
+                    "fields": ["meta_title", "meta_description", "created_at", "updated_at"],
                 },
             ),
         ],
     )
 
     readonly_fields = getattr(
-        settings, "ARTICLE_ADMIN_READONLY_FIELDS", ["created_at", "updated_at"],
+        settings, "ARTICLE_ADMIN_READONLY_FIELDS", READONLY_FIELDS,
     )
+
+
+@admin.register(ArticleTag)
+class ArticleTagAdmin(admin.ModelAdmin):
+    """
+    Admin config for ArticleTag model
+    """
+
+    list_display = ["tag", "created_at"]
+    fieldsets = (
+        [
+            (None, {"fields": ["tag", "slug"]}),
+            ("Meta Data", {"classes": ("collapse",), "fields": ["created_at", "updated_at"]},),
+        ],
+    )
+    prepopulated_fields = {"slug": ["tag"]}
+    readonly_fields = READONLY_FIELDS
 
 
 @admin.register(Author)
@@ -83,19 +81,14 @@ class AuthorAdmin(admin.ModelAdmin):
     Admin class for editing and creating Authors
     """
 
-    list_display = getattr(settings, "AUTHOR_ADMIN_LIST_DISPLAY", ["name", "created_at"])
-    fieldsets = getattr(
-        settings,
-        "AUTHOR_ADMIN_FIELDSETS",
+    list_display = ["name", "created_at"]
+    fieldsets = (
         [
             ("Details", {"fields": ["name"]},),
             ("Meta Data", {"classes": ("collapse",), "fields": ["created_at", "updated_at"]},),
         ],
     )
-
-    readonly_fields = getattr(
-        settings, "AUTHOR_ADMIN_READONLY_FIELDS", ["created_at", "updated_at"],
-    )
+    readonly_fields = READONLY_FIELDS
 
 
 @admin.register(Category)
@@ -104,14 +97,13 @@ class CategoryAdmin(admin.ModelAdmin):
     Admin class for editing and creating Category objects
     """
 
-    list_display = getattr(settings, "CATEGORY_ADMIN_LIST_DISPLAY", ["name", "created_at"])
-    search_fields = getattr(settings, "CATEGORY_ADMIN_SEARCH_FIELDS", ["name"])
+    list_display = "name", "created_at"
+    search_fields = "name"
     prepopulated_fields = {"slug": ["name"]}
-    fieldsets = getattr(
-        settings,
-        "CATEGORY_ADMIN_FIELDSETS",
+    fieldsets = (
         [
             (None, {"fields": ["name", "slug"]}),
             ("Meta Data", {"classes": ("collapse",), "fields": ["created_at", "updated_at"]},),
         ],
     )
+    readonly_fields = READONLY_FIELDS
