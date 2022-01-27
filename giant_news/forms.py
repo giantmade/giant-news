@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models import Q
 
-from news.models import ArticleTag, Category
+from giant_news.models import Tag, Category
 
 
 class NewsSearchForm(forms.Form):
@@ -16,12 +16,10 @@ class NewsSearchForm(forms.Form):
         required=False,
     )
     categories = forms.ModelMultipleChoiceField(
-        queryset=Category.objects.filter(articles__isnull=False).distinct(),
-        required=False,
-        widget=forms.CheckboxSelectMultiple(),
+        queryset=Category.objects.all(), required=False, widget=forms.CheckboxSelectMultiple(),
     )
     tags = forms.ModelMultipleChoiceField(
-        queryset=ArticleTag.objects.all(), required=False, widget=forms.CheckboxSelectMultiple(),
+        queryset=Tag.objects.all(), required=False, widget=forms.CheckboxSelectMultiple(),
     )
 
     def __init__(self, *args, **kwargs):

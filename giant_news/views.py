@@ -1,7 +1,12 @@
+import swapper
+
 from django.conf import settings
 from django.views.generic import DetailView, ListView
 
-from . import models, forms
+from giant_news import forms
+
+
+Article = swapper.load_model("giant_news", "Article")
 
 
 class ArticleIndex(ListView):
@@ -9,28 +14,27 @@ class ArticleIndex(ListView):
     Index view for news queryset
     """
 
-    model = models.Article
-    context_object_name = "article_index"
+    model = Article
     template_name = "news/index.html"
-    paginate_by = getattr(settings, "NEWS_PAGINATE_BY", 8)
+    paginate_by = 8
 
     def get_queryset(self):
         """
-        Override get method here to allow us to filter using tags
+        Override get method here to allow us to filter using tags. This is
+        called on get and is the value of self.object_list
         """
-        queryset = models.Article.objects.published(user=self.request.user)
-        form = forms.NewsSearchForm(data=self.request.GET or None, queryset=queryset)
+        object_list = Article.objects.published(user=self.request.user)
+        form = forms.NewsSearchForm(data=self.request.GET or None, queryset=object_list)
         if form.is_valid():
-            queryset = form.process()
-        return queryset
+            object_list = form.process()
+        return object_list
 
     def get_context_data(self, **kwargs):
         """
         Update the context with extra args
         """
         context = super().get_context_data(**kwargs)
-        context["form"] = forms.NewsSearchForm(queryset=self.object_list)
-        context["article_index"] = self.object_list
+        context.update({"form": forms.NewsSearchForm(queryset=self.object_list)})
         return context
 
 
@@ -46,5 +50,5 @@ class ArticleDetail(DetailView):
         Override the default queryset method so that we can access the request.user
         """
         if self.queryset is None:
-            return models.Article.objects.published(user=self.request.user)
+            return Article.objects.published(user=self.request.user)
         return self.queryset

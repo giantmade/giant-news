@@ -1,6 +1,8 @@
 from django.contrib.sitemaps import Sitemap
 
-from .models import Article
+import swapper
+
+Article = swapper.load_model("giant_news", "Article")
 
 
 class ArticleSitemap(Sitemap):

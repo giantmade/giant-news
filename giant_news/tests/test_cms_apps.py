@@ -1,4 +1,4 @@
-from news.cms_apps import NewsApp
+from giant_news.cms_apps import NewsApp
 
 
 class TestNewsApp:
@@ -11,4 +11,4 @@ class TestNewsApp:
         Test get_urls method on the News class
         """
 
-        assert NewsApp().get_urls() == ["news.urls"]
+        assert NewsApp().get_urls() == ["giant_news.urls"]

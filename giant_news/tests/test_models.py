@@ -4,7 +4,7 @@ import pytest
 @pytest.mark.django_db
 class TestArticle:
     # import models here to avoid error
-    from news.models import Article, Author
+    from giant_news.models import Article, Author
 
     @pytest.fixture
     def author_instance(self):
@@ -15,16 +15,16 @@ class TestArticle:
         return self.Article(title="Title", author=author_instance)
 
     def test_str(self, article_instance):
-        assert str(article_instance) == f"Title article by John Doe"
+        assert str(article_instance) == "Title article by John Doe"
 
 
-class TestArticleTag:
+class TestTag:
     # import models here to avoid error
-    from news.models import ArticleTag
+    from giant_news.models import Tag
 
     @pytest.fixture
     def article_tag_instance(self):
-        return self.ArticleTag(tag="Tag")
+        return self.Tag(name="Tag")
 
     def test_str(self, article_tag_instance):
         assert str(article_tag_instance) == "Tag"
@@ -32,7 +32,7 @@ class TestArticleTag:
 
 class TestAuthor:
     # import models here to avoid error
-    from news.models import Author
+    from giant_news.models import Author
 
     @pytest.fixture
     def author_instance(self):
@@ -44,7 +44,7 @@ class TestAuthor:
 
 class TestCategory:
     # import models here to avoid error
-    from news.models import Category
+    from giant_news.models import Category
 
     @pytest.fixture
     def category_instance(self):

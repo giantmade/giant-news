@@ -1,8 +1,7 @@
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from django.conf import settings
 
-from . import models
+from giant_news.models.plugin import RelatedArticlePlugin, RelatedArticleCardPlugin
 
 __all__ = ["RelatedArticlePlugin", "RelatedArticleCardPlugin"]
 
@@ -13,7 +12,7 @@ class RelatedArticlePlugin(CMSPluginBase):
     Plugin for the related article model
     """
 
-    model = models.RelatedArticlePlugin
+    model = RelatedArticlePlugin
     name = "Related Articles"
     render_template = "plugins/related_articles/container.html"
     allow_children = True
@@ -21,11 +20,17 @@ class RelatedArticlePlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         """
-        Override the default render to allow the user to set a custom number of articles to be shown
+        Override the default render to allow the user to set a custom number of
+        articles to be shown
         """
-        # TODO: prevent current page article from being repeated in the get_articles
         context = super().render(context, instance, placeholder)
-        context["latest_articles"] = instance.get_articles()
+        articles = instance.get_articles()
+        current_article = context.get("article")
+
+        if current_article:
+            articles.exclude(pk=current_article.pk)
+
+        context.update({"latest_articles": articles[: instance.num_articles]})
         return context
 
 
@@ -35,7 +40,7 @@ class RelatedArticleCardPlugin(CMSPluginBase):
     Plugin for related article card model
     """
 
-    model = models.RelatedArticleCardPlugin
+    model = RelatedArticleCardPlugin
     name = "Article Cards"
     render_template = "plugins/related_articles/item.html"
     require_parent = True
