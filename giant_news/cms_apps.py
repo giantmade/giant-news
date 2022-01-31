@@ -16,4 +16,4 @@ class NewsApp(CMSApp):
         Return the path to the apps urls module
         """
 
-        return ["news.urls"]
+        return ["giant_news.urls"]

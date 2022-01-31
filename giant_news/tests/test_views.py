@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-from news import models, forms, views
+from giant_news import models, views
 
 import pytest
 
@@ -43,24 +43,6 @@ class TestArticleView:
             publish_at=timezone.now() - timezone.timedelta(hours=1),
         )
 
-    def test_article_detail(self, article_instance):
-        """
-        Test the detail view returns the correct status code
-        """
-        client = Client()
-
-        article = article_instance
-        response = client.get(reverse("news:detail", kwargs={"slug": article.slug}))
-        assert response.status_code == 200
-
-    def test_article_index(self, article_instance):
-        """
-        Test the index view returns the correct status code
-        """
-        client = Client()
-        response = client.get(reverse("news:index"))
-        assert response.status_code == 200
-
     def test_unpublished_returns_404(self, article_instance, author_instance, category_instance):
         """
         Test to check that an unpublished article returns a 404
@@ -88,17 +70,3 @@ class TestArticleView:
 
         assert qs == "published"
         mock_qs.assert_called_once_with(user=mocker.ANY)
-
-    def test_update_context(self, article_instance, view_instance, mocker):
-        """
-        Test the context update returns published articles queryset and the NewsSearchForm
-        """
-        mock_qs = mocker.MagicMock(return_value="published")
-
-        view = view_instance
-        view.object_list = mock_qs
-
-        context = view.get_context_data()
-
-        assert context["article_index"] is mock_qs
-        assert isinstance(context["form"], forms.NewsSearchForm)

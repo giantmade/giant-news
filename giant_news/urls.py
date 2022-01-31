@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import ArticleDetail, ArticleIndex
 
-app_name = "news"
+app_name = "giant_news"
 
 urlpatterns = [
     path("", ArticleIndex.as_view(), name="index"),

@@ -11,22 +11,25 @@
             </div>
         </div>
     </section>
-    <form action="{{ request.url }}" method="get">
-        <div class="tags">
-            <ul>
-                {% for value, label in form.tags.field.choices %}
+    <section class="wrapper">
+        <form action="{{ request.url }}" method="get">
+            <div class="tags">
+                <ul>
+                    {% for value, label in form.tags.field.choices %}
                     <li>
                         <label for="{{ form.tags.name }}">
-                            <input type="checkbox" name="{{ form.tags.name }}" value="{{ value }}"{% if value|slugify in form.tags.data %} checked{% endif %}/>
+                            <input type="checkbox" name="{{ form.tags.name }}" value="{{ value }}" {% if value|slugify in
+                                form.tags.data %} checked{% endif %} />
                             <span>{{ label }}</span>
-                         </label>
+                        </label>
                     </li>
-                 {% endfor %}
-                <button class="btn" type="submit">Filter</button>
-
-            </ul>
-        </div>
-    </form>
+                    {% endfor %}
+                    <button class="btn" type="submit">Filter</button>
+    
+                </ul>
+            </div>
+        </form>
+    </section>
     <section class="text-image-block">
         <div class="wrapper">
             {% for article in article_index %}

@@ -23,9 +23,9 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "news",
+    "giant_news",
 ]
-ROOT_URLCONF = "news.tests.urls"
+ROOT_URLCONF = "giant_news.tests.urls"
 
 TEMPLATES = [
     {
@@ -54,3 +54,7 @@ LANGUAGE_CODE = 'en-gb'
 LANGUAGES = [
     ('en-gb', 'English'),
 ]
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+GIANT_NEWS_ARTICLE_MODEL = "giant_news.Article"
