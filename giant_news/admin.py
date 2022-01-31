@@ -67,10 +67,10 @@ class AuthorAdmin(admin.ModelAdmin):
 
     list_display = ["name", "created_at"]
     fieldsets = [
-        ("Details", {"fields": ["name"]}),
+        (None, {"fields": ["name", "slug"]}),
         ("Meta Data", {"classes": ("collapse",), "fields": ["created_at", "updated_at"]}),
     ]
-
+    prepopulated_fields = {"slug": ["name"]}
     readonly_fields = READONLY_FIELDS
 
 
