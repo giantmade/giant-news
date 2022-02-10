@@ -15,7 +15,6 @@ class ArticleIndex(ListView):
     """
 
     model = Article
-    context_object_name = "published_articles"
     template_name = "news/index.html"
     paginate_by = 8
 
