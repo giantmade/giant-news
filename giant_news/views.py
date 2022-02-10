@@ -15,6 +15,7 @@ class ArticleIndex(ListView):
     """
 
     model = Article
+    context_object_name = "published_articles"
     template_name = "news/index.html"
     paginate_by = 8
 
@@ -34,12 +35,7 @@ class ArticleIndex(ListView):
         Update the context with extra args
         """
         context = super().get_context_data(**kwargs)
-        context.update(
-            {
-                "form": forms.NewsSearchForm(queryset=self.object_list),
-                "published_articles": self.object_list,
-            }
-        )
+        context.update({"form": forms.NewsSearchForm(queryset=self.object_list)})
         return context
 
 
