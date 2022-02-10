@@ -54,7 +54,7 @@ admin.site.register(Article, ArticleAdmin)
 ```
 
 When the migrations are created for this new model it will need some tweaking as
-Django will not set this up to use swapper. To do this add the following line to
+Django will not set this up to use swapper. To do this add the following lines to
 the initial migration file (this will replace the hardcoded dependency on the
 0002 migration from giant_news)
 
@@ -65,6 +65,7 @@ class Migration...
 
     dependencies = [
         ...
+        ('giant_news', '0001_initial'),
         swapper.dependency("giant_news", "Article"),
     ]
 ```
