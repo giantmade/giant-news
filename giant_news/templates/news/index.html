@@ -32,7 +32,7 @@
     </section>
     <section class="text-image-block">
         <div class="wrapper">
-            {% for article in article_index %}
+            {% for article in article_list %}
                 <a href="{{ article.get_absolute_url }}" title="{{ article.title }}" class="text-image-block__item">
                     <div class="text-image-block__text col">
                         <div class="upper">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="lower">
                             <p>
-                                <strong>Posted by {{ article.author|title }}</strong><br />
+                                <strong>Posted by {{ article.author.name }}</strong><br />
                                 {{ article.publish_at|date:"d F Y" }}
                             </p>
                             <p>Reading time <span>{{ article.read_time }} {% if article.read_time == 1 %}minute{% else %}minutes{% endif %}</span></p>
