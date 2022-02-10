@@ -34,7 +34,12 @@ class ArticleIndex(ListView):
         Update the context with extra args
         """
         context = super().get_context_data(**kwargs)
-        context.update({"form": forms.NewsSearchForm(queryset=self.object_list)})
+        context.update(
+            {
+                "form": forms.NewsSearchForm(queryset=self.object_list),
+                "published_articles": self.object_list,
+            }
+        )
         return context
 
 
