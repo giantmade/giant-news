@@ -18,7 +18,7 @@ Supported django CMS versions:
 > versions < 1 due to model name changes and a migration reset. Only upgrade to
 > this version if you are aware of what changes need to be made
 
-## Installation
+## Installation and Configuration
 
 To install with the package manager, run:
 
@@ -90,14 +90,50 @@ In order to add published articles to your sitemap, import the sitemaps file and
 
 ## URLs
 
-Add the following to `core.urls` for general functionality:
+It is recommened that the application be added to a CMS page via the apphook. However if you wish to hardcode the URL, you can do so by adding the following to your main`urls.py` file:
+
+```
 
     path("news/", include("giant_news.urls"), name="news"),
+```
 
 If you want to customize the urls to include a different path and/or templates, first you must import `from giant_news import views as news_views` in `core.urls` and then you could add the following:
 
     path("news/", news_views.ArticleIndex.as_view(template_name="news/index.html"), name="index"),
     path("news/<slug:slug>/", news_views.ArticleDetail.as_view(template_name="news/detail.html"), name="detail"),
+
+# Local development
+
+## Getting setup
+
+To get started with local development of this library, you will need access to poetry (or another venv manager). You can set up a virtual environment with poetry by running:
+
+    $ poetry shell
+
+Note: You can update which version of python poetry will use for the virtualenv by using the:
+
+    $ poetry env use 3.x
+
+and install all the required dependencies (seen in the pyproject.toml file) with:
+
+    $ poetry install
+
+
+## Management commands
+
+As the libary does not come with a `manage.py` file we need to use `django-admin` instead, however we will need to set our `DJANGO_SETTINGS_MODULE` file in the environment. You can do this with:  
+
+    $ export DJANGO_SETTINGS_MODULE=settings
+
+From here you can run all the standard Django management commands such as `django-admin makemigrations`.
+
+## Testing
+
+This library uses Pytest in order to run it's tests. You can do this (inside the shell) by running:
+
+    $ pytest -v
+
+where `-v` is to run in verbose mode which, whilst not necessary, will show which tests errored/failed/passed a bit more clearly. 
 
 ## Preparing for release
 
@@ -114,10 +150,4 @@ will package the project up for you into a way that can be published.
 
     $ `poetry publish`
 
-will publish the package to PyPi. You will need to enter the username and password for the account which can be found in the company password manager
-
-## Local development
-
-In order to run `django-admin` commands you will need to set the `DJANGO_SETTINGS_MODULE` by running
-
-    $ export DJANGO_SETTINGS_MODULE=settings
+will publish the package to PyPi. You will need to enter the company username (Giant-Digital) and password for the account which can be found in the company password manager
