@@ -90,7 +90,7 @@ In order to add published articles to your sitemap, import the sitemaps file and
 
 ## URLs
 
-It is recommened that the application be added to a CMS page via the apphook. However if you wish to hardcode the URL, you can do so by adding the following to your main`urls.py` file:
+It is recommended that the application be added to a CMS page via the apphook. However, if you wish to hardcode the URL, you can do so by adding the following to your main `urls.py` file:
 
 ```
 
@@ -110,7 +110,7 @@ To get started with local development of this library, you will need access to p
 
     $ poetry shell
 
-Note: You can update which version of python poetry will use for the virtualenv by using the:
+Note: You can update which version of python poetry will use for the virtualenv by using:
 
     $ poetry env use 3.x
 
@@ -121,7 +121,7 @@ and install all the required dependencies (seen in the pyproject.toml file) with
 
 ## Management commands
 
-As the libary does not come with a `manage.py` file we need to use `django-admin` instead, however we will need to set our `DJANGO_SETTINGS_MODULE` file in the environment. You can do this with:  
+As the library does not come with a `manage.py` file we need to use `django-admin` instead. However, we will need to set our `DJANGO_SETTINGS_MODULE` file in the environment. You can do this with:  
 
     $ export DJANGO_SETTINGS_MODULE=settings
 
@@ -129,11 +129,11 @@ From here you can run all the standard Django management commands such as `djang
 
 ## Testing
 
-This library uses Pytest in order to run it's tests. You can do this (inside the shell) by running:
+This library uses Pytest in order to run its tests. You can do this (inside the shell) by running:
 
     $ pytest -v
 
-where `-v` is to run in verbose mode which, whilst not necessary, will show which tests errored/failed/passed a bit more clearly. 
+where `-v` is to run in verbose mode which, while not necessary, will show which tests errored/failed/passed a bit more clearly. 
 
 ## Preparing for release
 
