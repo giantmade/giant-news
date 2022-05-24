@@ -35,6 +35,7 @@ class Tag(NameAndSlugAbstract):
     """
     Model for storing a Tag object
     """
+
     pass
 
 
@@ -42,6 +43,7 @@ class Author(NameAndSlugAbstract):
     """
     Model for storing an Author object
     """
+
     pass
 
 
@@ -49,6 +51,7 @@ class Category(NameAndSlugAbstract):
     """
     Model for storing a Category object
     """
+
     pass
 
 
@@ -56,6 +59,7 @@ class ArticleQuerySet(PublishingQuerySetMixin):
     """
     Custom QuerySet model to override the base one
     """
+
     pass
 
 
@@ -77,9 +81,7 @@ class AbstractArticle(TimestampMixin, PublishingMixin):
     )
 
     intro = models.CharField(max_length=255)
-    content = PlaceholderField(
-        slotname="article_content", related_name="%(app_label)s_%(class)ss"
-    )
+    content = PlaceholderField(slotname="article_content", related_name="%(app_label)s_%(class)ss")
     tags = models.ManyToManyField(
         to=Tag, verbose_name="Tags", related_name="%(app_label)s_%(class)s_tags"
     )

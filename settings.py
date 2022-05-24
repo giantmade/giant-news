@@ -1,4 +1,3 @@
-
 SECRET_KEY = "giant-news"
 
 DATABASES = {
@@ -49,10 +48,10 @@ MIDDLEWARE = [
 
 SITE_ID = 1
 
-LANGUAGE_CODE = 'en-gb'
+LANGUAGE_CODE = "en-gb"
 
 LANGUAGES = [
-    ('en-gb', 'English'),
+    ("en-gb", "English"),
 ]
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
