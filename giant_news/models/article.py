@@ -13,52 +13,46 @@ from filer.fields.image import FilerImageField
 from mixins.models import PublishingMixin, PublishingQuerySetMixin, TimestampMixin
 
 
-__all__ = ["Tag", "Author", "Category", "Article", "ArticleQuerySet", "AbstractArticle"]
+__all__ = "AbstractArticle Article ArticleQuerySet Author Category NameAndSlugAbstract Tag".split()
 
 
-class Tag(TimestampMixin):
-    """
-    Model to store a tag for the Article model
-    """
+class NameAndSlugAbstract(TimestampMixin):
 
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
 
+    class Meta:
+        abstract = True
+
     def __str__(self):
         """
-        String representation of the Tag object
+        String representation of the object
         """
         return self.name
 
 
-class Author(TimestampMixin):
+class Tag(NameAndSlugAbstract):
+    """
+    Model for storing a Tag object
+    """
+
+    pass
+
+
+class Author(NameAndSlugAbstract):
     """
     Model for storing an Author object
     """
 
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True)
-
-    def __str__(self):
-        """
-        String representation of the Author object
-        """
-        return self.name
+    pass
 
 
-class Category(TimestampMixin):
+class Category(NameAndSlugAbstract):
     """
-    Model for creating and storing a Category object
+    Model for storing a Category object
     """
 
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True)
-
-    def __str__(self):
-        """
-        String representation of the Category object
-        """
-        return self.name
+    pass
 
 
 class ArticleQuerySet(PublishingQuerySetMixin):
@@ -87,9 +81,7 @@ class AbstractArticle(TimestampMixin, PublishingMixin):
     )
 
     intro = models.CharField(max_length=255)
-    content = PlaceholderField(
-        slotname="article_content", related_name="%(app_label)s_%(class)ss"
-    )
+    content = PlaceholderField(slotname="article_content", related_name="%(app_label)s_%(class)ss")
     tags = models.ManyToManyField(
         to=Tag, verbose_name="Tags", related_name="%(app_label)s_%(class)s_tags"
     )
