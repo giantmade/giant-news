@@ -16,49 +16,40 @@ from mixins.models import PublishingMixin, PublishingQuerySetMixin, TimestampMix
 __all__ = ["Tag", "Author", "Category", "Article", "ArticleQuerySet", "AbstractArticle"]
 
 
-class Tag(TimestampMixin):
+class NameAndSlugAbstract(TimestampMixin):
+
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        """
+        String representation of the object
+        """
+        return self.name
+
+
+class Tag(NameAndSlugAbstract):
     """
     Model to store a tag for the Article model
     """
-
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True)
-
-    def __str__(self):
-        """
-        String representation of the Tag object
-        """
-        return self.name
+    pass
 
 
-class Author(TimestampMixin):
+class Author(NameAndSlugAbstract):
     """
     Model for storing an Author object
     """
-
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True)
-
-    def __str__(self):
-        """
-        String representation of the Author object
-        """
-        return self.name
+    pass
 
 
-class Category(TimestampMixin):
+class Category(NameAndSlugAbstract):
     """
     Model for creating and storing a Category object
     """
-
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True)
-
-    def __str__(self):
-        """
-        String representation of the Category object
-        """
-        return self.name
+    pass
 
 
 class ArticleQuerySet(PublishingQuerySetMixin):
