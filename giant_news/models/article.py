@@ -13,7 +13,7 @@ from filer.fields.image import FilerImageField
 from mixins.models import PublishingMixin, PublishingQuerySetMixin, TimestampMixin
 
 
-__all__ = ["Tag", "Author", "Category", "Article", "ArticleQuerySet", "AbstractArticle"]
+__all__ = "AbstractArticle Article ArticleQuerySet Author Category NameAndSlugAbstract Tag".split()
 
 
 class NameAndSlugAbstract(TimestampMixin):
@@ -33,7 +33,7 @@ class NameAndSlugAbstract(TimestampMixin):
 
 class Tag(NameAndSlugAbstract):
     """
-    Model to store a tag for the Article model
+    Model for storing a Tag object
     """
     pass
 
@@ -47,7 +47,7 @@ class Author(NameAndSlugAbstract):
 
 class Category(NameAndSlugAbstract):
     """
-    Model for creating and storing a Category object
+    Model for storing a Category object
     """
     pass
 
@@ -56,7 +56,6 @@ class ArticleQuerySet(PublishingQuerySetMixin):
     """
     Custom QuerySet model to override the base one
     """
-
     pass
 
 
