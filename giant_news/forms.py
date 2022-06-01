@@ -16,14 +16,10 @@ class NewsSearchForm(forms.Form):
         required=False,
     )
     categories = forms.ModelMultipleChoiceField(
-        queryset=Category.objects.all(),
-        required=False,
-        widget=forms.CheckboxSelectMultiple(),
+        queryset=Category.objects.all(), required=False, widget=forms.CheckboxSelectMultiple(),
     )
     tags = forms.ModelMultipleChoiceField(
-        queryset=Tag.objects.all(),
-        required=False,
-        widget=forms.CheckboxSelectMultiple(),
+        queryset=Tag.objects.all(), required=False, widget=forms.CheckboxSelectMultiple(),
     )
 
     def __init__(self, *args, **kwargs):

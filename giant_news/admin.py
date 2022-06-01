@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-
 READONLY_FIELDS = ["created_at", "updated_at"]
 
 
