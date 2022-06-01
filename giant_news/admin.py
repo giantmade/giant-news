@@ -1,12 +1,8 @@
 from django.contrib import admin
 
-from .models import Article, Tag, Author, Category
-
-
 READONLY_FIELDS = ["created_at", "updated_at"]
 
 
-@admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     """
     Admin config for the Article model
@@ -44,7 +40,6 @@ class ArticleAdmin(admin.ModelAdmin):
     readonly_fields = READONLY_FIELDS
 
 
-@admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     """
     Admin config for Tag model
@@ -59,7 +54,6 @@ class TagAdmin(admin.ModelAdmin):
     readonly_fields = READONLY_FIELDS
 
 
-@admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     """
     Admin class for editing and creating Authors
@@ -74,7 +68,6 @@ class AuthorAdmin(admin.ModelAdmin):
     readonly_fields = READONLY_FIELDS
 
 
-@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     """
     Admin class for editing and creating Category objects

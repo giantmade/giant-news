@@ -52,7 +52,8 @@ class Category(NameAndSlugAbstract):
     Model for storing a Category object
     """
 
-    pass
+    class Meta:
+        verbose_name_plural = "Categories"
 
 
 class ArticleQuerySet(PublishingQuerySetMixin):
@@ -81,7 +82,9 @@ class AbstractArticle(TimestampMixin, PublishingMixin):
     )
 
     intro = models.CharField(max_length=255)
-    content = PlaceholderField(slotname="article_content", related_name="%(app_label)s_%(class)ss")
+    content = PlaceholderField(
+        slotname="%(class)s_content", related_name="%(app_label)s_%(class)ss"
+    )
     tags = models.ManyToManyField(
         to=Tag, verbose_name="Tags", related_name="%(app_label)s_%(class)s_tags"
     )

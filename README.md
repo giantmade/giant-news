@@ -84,6 +84,18 @@ point swapper to this new model. You can do this with the following setting:
     GIANT_NEWS_ARTICLE_MODEL = "appname.Article"
 
 
+## Admin
+By default, the admin for each of the models is not installed. This is so that you can register them as you need within your custom app. To do so add the following lines to your admin.py
+
+```
+from giant_news.admin import ArticleAdmin, TagAdmin, CategoryAdmin, AuthorAdmin
+from giant_news.models import Article, Tag, Category, Author
+
+admin.site.register(Article, ArticleAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Author, AuthorAdmin)
+admin.site.register(Tag, TagAdmin)
+```
 
 ## Sitemap
 

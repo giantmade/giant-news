@@ -30,4 +30,9 @@
   flexibility in the future. Article is now a swappable model. 
 - Reset migrations
 - Fixed current article being displayed on the related articles plugin
-- 
+
+## 1.0.0-beta.4
+- Don't register admin by default (added steps to README)
+- Fix template syntax so it doesn't raise Invalid block tag
+- Fix `verbose_name_plural` for Category model
+- Change Placeholder name to `class-name_placeholder` for generic content
