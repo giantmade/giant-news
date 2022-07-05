@@ -98,9 +98,9 @@ admin.site.register(Tag, TagAdmin)
 ```
 
 ## CMS App
-By default this app is not registered as a CMS App. However if you wish to use the builtin CMS app simply add the following line of code to the bottom of one of your cms_apps.py files.
+By default this app is not registered as a CMS App. However if you wish to use the builtin CMS app simply add the following line of code to the settings file.
 
-    apphook_pool.register(NewsApp)
+    REGISTER_NEWS_APP = True
 
 Not forgetting to import NewsApp from giant_news.
 
