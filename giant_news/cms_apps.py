@@ -1,8 +1,9 @@
+from django.conf import settings
+
 from cms.app_base import CMSApp
 from cms.apphook_pool import apphook_pool
 
 
-@apphook_pool.register
 class NewsApp(CMSApp):
     """
     App hook for News app
@@ -17,3 +18,7 @@ class NewsApp(CMSApp):
         """
 
         return ["giant_news.urls"]
+
+
+if settings.REGISTER_NEWS_APP:
+    apphook_pool.register(NewsApp)

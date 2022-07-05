@@ -36,3 +36,6 @@
 - Fix template syntax so it doesn't raise Invalid block tag
 - Fix `verbose_name_plural` for Category model
 - Change Placeholder name to `class-name_placeholder` for generic content
+
+## 1.1.0-beta.4
+- Don't register CMS app by default. Controlled through settings variable REGISTER_NEWS_APP.

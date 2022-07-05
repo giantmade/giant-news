@@ -57,3 +57,5 @@ LANGUAGES = [
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 GIANT_NEWS_ARTICLE_MODEL = "giant_news.Article"
+
+REGISTER_NEWS_APP = False
