@@ -102,8 +102,6 @@ By default this app is not registered as a CMS App. However if you wish to use t
 
     REGISTER_NEWS_APP = True
 
-Not forgetting to import NewsApp from giant_news.
-
 ## Sitemap
 
 In order to add published articles to your sitemap, import the sitemaps file and add it to your `sitemaps` dict. This is usually contained within the main `urls.py` file.
