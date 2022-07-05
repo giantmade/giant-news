@@ -97,6 +97,13 @@ admin.site.register(Author, AuthorAdmin)
 admin.site.register(Tag, TagAdmin)
 ```
 
+## CMS App
+By default this app is not registered as a CMS App. However if you wish to use the builtin CMS app simply add the following line of code to the bottom of one of your cms_apps.py files.
+
+    apphook_pool.register(NewsApp)
+
+Not forgetting to import NewsApp from giant_news.
+
 ## Sitemap
 
 In order to add published articles to your sitemap, import the sitemaps file and add it to your `sitemaps` dict. This is usually contained within the main `urls.py` file.
