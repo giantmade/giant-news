@@ -39,3 +39,6 @@
 
 ## 1.1.0-beta.4
 - Don't register CMS app by default. Controlled through settings variable REGISTER_NEWS_APP.
+
+## 1.1.1
+- Add `name` as searchable field for TagAdmin
