@@ -1,9 +1,11 @@
 from django.contrib import admin
 
+from cms.admin.placeholderadmin import PlaceholderAdminMixin
+
 READONLY_FIELDS = ["created_at", "updated_at"]
 
 
-class ArticleAdmin(admin.ModelAdmin):
+class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
     """
     Admin config for the Article model
     """
