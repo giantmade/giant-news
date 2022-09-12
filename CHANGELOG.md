@@ -42,3 +42,9 @@
 
 ## 1.1.1
 - Add `name` as searchable field for TagAdmin
+
+## 1.2/1.2.1
+- Add `_default_author()` method to retrieve the first default author
+- Allow Authors to be deleted without CASCADING all of the related articles. Achieved by providing
+  a default_author method to SET_DEFAULT on the author foreignkey.
+- Add `is_default` to Author model and expose in the admin
