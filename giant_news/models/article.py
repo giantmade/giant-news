@@ -10,7 +10,16 @@ from cms.plugin_rendering import ContentRenderer
 from filer.fields.image import FilerImageField
 from mixins.models import PublishingMixin, PublishingQuerySetMixin, TimestampMixin
 
-__all__ = "AbstractArticle Article ArticleQuerySet Author Category NameAndSlugAbstract Tag".split()
+__all__ = [
+    "AbstractArticle",
+    "Article",
+    "ArticleQuerySet",
+    "Author",
+    "Category",
+    "NameAndSlugAbstract",
+    "Tag",
+    "_default_author",
+]
 
 
 def _default_author():
