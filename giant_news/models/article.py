@@ -1,19 +1,20 @@
-import swapper
 from django.db import models
-
+from django.test import RequestFactory
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.html import strip_tags
-from django.test import RequestFactory
 
+import swapper
 from cms.models import PlaceholderField
 from cms.plugin_rendering import ContentRenderer
 from filer.fields.image import FilerImageField
-
 from mixins.models import PublishingMixin, PublishingQuerySetMixin, TimestampMixin
 
-
 __all__ = "AbstractArticle Article ArticleQuerySet Author Category NameAndSlugAbstract Tag".split()
+
+
+def _default_author():
+    return Author.objects.filter(is_default=True).first()
 
 
 class NameAndSlugAbstract(TimestampMixin):
@@ -44,7 +45,7 @@ class Author(NameAndSlugAbstract):
     Model for storing an Author object
     """
 
-    pass
+    is_default = models.BooleanField(default=False)
 
 
 class Category(NameAndSlugAbstract):
@@ -72,7 +73,11 @@ class AbstractArticle(TimestampMixin, PublishingMixin):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
     author = models.ForeignKey(
-        to=Author, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)ss"
+        to=Author,
+        null=True,
+        on_delete=models.SET_DEFAULT,
+        default=_default_author,
+        related_name="%(app_label)s_%(class)ss",
     )
     photo = FilerImageField(
         related_name="%(app_label)s_%(class)s_images",
