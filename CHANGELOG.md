@@ -48,3 +48,6 @@
 - Allow Authors to be deleted without CASCADING all of the related articles. Achieved by providing
   a default_author method to SET_DEFAULT on the author foreignkey.
 - Add `is_default` to Author model and expose in the admin
+
+## 1.2.2
+- Add `_default_author` to __all__ 
