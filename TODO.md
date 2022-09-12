@@ -1,1 +1,1 @@
-[] Add search_indexes.py 
+[] Gracefully handle no default author present
