@@ -62,9 +62,9 @@ class AuthorAdmin(admin.ModelAdmin):
     Admin class for editing and creating Authors
     """
 
-    list_display = ["name", "created_at"]
+    list_display = ["name", "is_default", "created_at"]
     fieldsets = [
-        (None, {"fields": ["name", "slug"]}),
+        (None, {"fields": ["name", "slug", "is_default"]}),
         ("Meta Data", {"classes": ("collapse",), "fields": ["created_at", "updated_at"]}),
     ]
     prepopulated_fields = {"slug": ["name"]}
