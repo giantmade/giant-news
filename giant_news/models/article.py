@@ -97,7 +97,7 @@ class AbstractArticle(TimestampMixin, PublishingMixin):
 
     intro = models.CharField(max_length=255)
     content = PlaceholderField(
-        slotname="%(class)s_content", related_name="%(app_label)s_%(class)ss"
+        slotname="content", related_name="%(app_label)s_%(class)ss"
     )
     tags = models.ManyToManyField(
         to=Tag, verbose_name="Tags", related_name="%(app_label)s_%(class)s_tags"
