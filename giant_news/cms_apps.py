@@ -20,5 +20,5 @@ class NewsApp(CMSApp):
         return ["giant_news.urls"]
 
 
-if settings.REGISTER_NEWS_APP:
+if getattr(settings, "REGISTER_NEWS_APP", False):
     apphook_pool.register(NewsApp)
