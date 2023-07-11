@@ -2,6 +2,9 @@
 
 <section class="card-block">
     <div class="wrapper">
+        {% if instance.title %}
+            <h3>{{ instance.title }}</h3>
+        {% endif %}
         <div class="card-block__cards card-block__cards--articles three-col">
             {% if instance.tags.all %}
                 {% for article in latest_articles %}

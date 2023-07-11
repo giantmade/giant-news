@@ -45,6 +45,15 @@ class RelatedArticlePlugin(CMSPlugin):
         """,
     )
 
+    title = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="""
+        If you want to display a title above the articles,
+        enter it here.
+        """,
+    )
+
     def __str__(self):
         """
         String representation of the article card object

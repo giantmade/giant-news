@@ -1,3 +1,6 @@
+## 1.2.4
+- Add optional title field to the related article plugin
+
 ## 1.2.3
 - Update to Django 4 for development
 - Add 0006 migration which adds django 4 related field changes
