@@ -137,18 +137,18 @@ class AbstractArticle(TimestampMixin, PublishingMixin):
         return reverse("news:detail", kwargs={"slug": self.slug})
 
     @cached_property
-    def plain_text(self):
+    def rich_plugin_text(self):
         """
         Renders all the plaintext plugins from the placeholder field
         """
-
         # We need to use this weird ContentRenderer in order to render the plugins
         renderer = ContentRenderer(request=RequestFactory())
         text = ""
 
         for plugin in self.content.cmsplugin_set.all():
-            html = renderer.render_plugin(plugin, {})
-            text += strip_tags(html)
+            if plugin.plugin_type == "RichTextPlugin":
+                html = renderer.render_plugin(plugin, {})
+                text += strip_tags(html)
 
         return text.strip()
 
@@ -157,7 +157,7 @@ class AbstractArticle(TimestampMixin, PublishingMixin):
         """
         Return estimated article reading time
         """
-        word_count = len(self.plain_text.split())
+        word_count = len(self.rich_plugin_text.split())
         mins = round(word_count / 240.0)
         if word_count and mins < 1:
             return 1

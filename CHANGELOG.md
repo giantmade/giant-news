@@ -1,3 +1,6 @@
+## 1.2.5
+- Fixed bug that was causing recursion error when article card plugin was placed on an article detail page. The read_time attribute is now calculated from rich text plugins only.
+
 ## 1.2.4
 - Add optional title field to the related article plugin
 
