@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "giant-news"
-version = "1.2.4"
+version = "1.2.5"
 description = "A small reusable package that adds a News app to a project"
 authors = ["Will-Hoey <will.hoey@giantdigital.co.uk>"]
 license = "MIT"
@@ -43,7 +43,7 @@ flake8 = "^6.0.0"
 [[tool.poetry.source]]
 name = "TestPyPi"
 url = "https://test.pypi.org/simple/"
-secondary = true
+priority = "secondary"
 
 [tool.black]
 line-length = 99
