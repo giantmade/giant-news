@@ -1,3 +1,6 @@
+## 1.2.6
+- Assign saved plugin_text correctly for article model following from 1.2.5.
+
 ## 1.2.5
 - Fixed bug that was causing recursion error when article card plugin was placed on an article detail page. The read_time attribute is now calculated from rich text plugins only.
 

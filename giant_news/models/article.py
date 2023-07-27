@@ -127,7 +127,7 @@ class AbstractArticle(TimestampMixin, PublishingMixin):
         Override save method so we can store the plugin text
         """
         if self.content:
-            self.plugin_text = self.plain_text
+            self.plugin_text = self.rich_plugin_text
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
