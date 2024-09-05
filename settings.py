@@ -14,7 +14,6 @@ INSTALLED_APPS = [
     "sekizai",
     "easy_thumbnails",
     "filer",
-    # "mptt",
     "djangocms_admin_style",
     "django.contrib.admin",
     "django.contrib.auth",
