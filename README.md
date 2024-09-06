@@ -106,6 +106,21 @@ By default this app is not registered as a CMS App. However if you wish to use t
 
 In order to add published articles to your sitemap, import the sitemaps file and add it to your `sitemaps` dict. This is usually contained within the main `urls.py` file.
 
+## Feeds
+
+Two news feeds are published, an [RSS feed](https://www.rssboard.org/rss-specification), and an [Atom feed](https://www.ietf.org/rfc/rfc4287.txt). These feeds are enabled by default, but can be explicitly disabled with the setting:
+
+    NEWS_FEEDS_ENABLED = False
+
+The feeds also have limited customisation via the `settings` file:
+
+    NEWS_FEED_TITLE = "Client Name News"
+    NEWS_FEED_DESCRIPTION = "Latest news and articles from Client Name"
+
+Finally, the number of published articles to include in the feed can be set with:
+
+    NEWS_FEED_LIMIT = 20
+
 ## URLs
 
 It is recommended that the application be added to a CMS page via the apphook. However, if you wish to hardcode the URL, you can do so by adding the following to your main `urls.py` file:
