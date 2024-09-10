@@ -1,3 +1,6 @@
+## 1.3.0
+- Add Atom and RSS news feeds.
+
 ## 1.2.6
 - Assign saved plugin_text correctly for article model following from 1.2.5.
 
