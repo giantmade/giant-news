@@ -181,6 +181,6 @@ Publishing a package with poetry is incredibly easy. Once you have checked that 
 
 will package the project up for you into a way that can be published.
 
-    $ `poetry publish`
+To publish the package, you need the PyPI API key (beginning with `pypi-`), which is in the company password manager. We then publish, using the username `__token__` and the API key:
 
-will publish the package to PyPi. You will need to enter the company username (Giant-Digital) and password for the account which can be found in the company password manager
+    $ `poetry publish -u __token__ -p pypi-XXXXXXXXXXXXXXXXXXXXXXXX`
