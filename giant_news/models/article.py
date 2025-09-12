@@ -55,6 +55,9 @@ class Author(NameAndSlugAbstract):
     """
 
     is_default = models.BooleanField(default=False)
+    external_url = models.URLField(
+        default="", blank=True, help_text="Add additional link to connect author to a social media account e.g. LinkedIn."
+    )
 
 
 class Category(NameAndSlugAbstract):

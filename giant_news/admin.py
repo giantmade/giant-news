@@ -10,7 +10,7 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
     Admin config for the Article model
     """
 
-    list_display = ["title", "author", "category", "is_published", "created_at"]
+    list_display = ["title", "author", "external_url", "category", "is_published", "created_at"]
     search_fields = ["title", "author__name", "intro"]
     prepopulated_fields = {"slug": ["title"]}
     fieldsets = [
@@ -21,6 +21,7 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
                     "title",
                     "slug",
                     "author",
+                    "external_url",
                     "category",
                     "intro",
                     "tags",
