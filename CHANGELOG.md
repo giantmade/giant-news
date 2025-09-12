@@ -1,3 +1,6 @@
+## 1.3.1
+- Add external url to Author class.
+
 ## 1.3.0
 - Add Atom and RSS news feeds.
 
