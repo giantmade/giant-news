@@ -24,14 +24,12 @@ jobs:
           version: 1.8.0
           virtualenvs-create: true
 
-      - name: Add reportlab
-        run: poetry add reportlab="4.0" --group dev
-
       - name: Build and Test
         run: |
           poetry install
           poetry run pytest
           poetry build
+          poetry add reportlab="4.0" --group dev
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@797e92895ec0eac368405352c0add9af878fe257  # v1
