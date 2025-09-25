@@ -1,3 +1,6 @@
+## 1.3.2
+- Remove external url from ArticleAdmin and move to AuthorAdmin.
+
 ## 1.3.1
 - Add external url to Author class.
 
