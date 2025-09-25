@@ -22,6 +22,9 @@ jobs:
           version: 1.8.0
           virtualenvs-create: true
 
+      - name: Add reportlab
+        run: poetry add reportlab="4.0" --group dev
+
       - name: Install and Build
         run: |
           poetry install
