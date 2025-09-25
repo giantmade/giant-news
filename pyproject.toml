@@ -39,6 +39,7 @@ pytest-mock = "^3.2.0"
 six = "^1.15.0"
 django-polymorphic = "3.0.0"
 flake8 = "^6.0.0"
+reportlab = "4.0"
 
 [tool.black]
 line-length = 99
