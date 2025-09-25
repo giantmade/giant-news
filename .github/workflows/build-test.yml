@@ -26,10 +26,10 @@ jobs:
 
       - name: Build and Test
         run: |
+          poetry add reportlab="4.0" --group dev
           poetry install
           poetry run pytest
           poetry build
-          poetry add reportlab="4.0" --group dev
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@797e92895ec0eac368405352c0add9af878fe257  # v1

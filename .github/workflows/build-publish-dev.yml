@@ -24,8 +24,8 @@ jobs:
 
       - name: Install and Build
         run: |
-          poetry install
           poetry add reportlab="4.0" --group dev
+          poetry install
           poetry build
 
       - name: Publish package to TestPyPI
